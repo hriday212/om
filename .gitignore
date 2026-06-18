@@ -1,0 +1,6 @@
+# Backup directories
+vibe_skills_backup/
+
+# OS metadata
+.DS_Store
+Thumbs.db

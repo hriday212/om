@@ -1,0 +1,22 @@
+{
+    "lane":  "serena",
+    "stage":  "deep_interview",
+    "task":  "Create a family business website prototype for OM Store with ordering and delivery tracking",
+    "top_k":  3,
+    "max_chars_per_item":  240,
+    "keywords":  [
+                     "create",
+                     "family",
+                     "business",
+                     "website",
+                     "prototype",
+                     "for",
+                     "store",
+                     "with",
+                     "ordering",
+                     "and",
+                     "delivery",
+                     "tracking"
+                 ],
+    "project_key_source":  null
+}

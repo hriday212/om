@@ -1,0 +1,17 @@
+{
+    "stage":  "skeleton_check",
+    "owner":  "state_store",
+    "status":  "fallback_local_digest",
+    "generated_at":  "2026-06-07T04:53:26Z",
+    "source_receipt_path":  "C:\\Users\\Hrida\\Downloads\\Om\\outputs\\runtime\\vibe-sessions\\20260607T045325Z-c98cf88e\\skeleton-receipt.json",
+    "items":  [
+                  "Task focus: Create a family business website prototype for OM Store with ordering and delivery tracking",
+                  "Git branch: ",
+                  "All required governed runtime prerequisite paths are present."
+              ],
+    "budget":  {
+                   "top_k":  3,
+                   "max_tokens":  96,
+                   "max_chars_per_item":  220
+               }
+}

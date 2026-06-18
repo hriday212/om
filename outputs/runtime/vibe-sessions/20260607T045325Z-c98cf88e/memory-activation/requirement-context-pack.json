@@ -1,0 +1,35 @@
+{
+    "stage":  "requirement_doc",
+    "source_stage":  "bounded_memory_recall",
+    "owner":  "state_store",
+    "disclosure_level":  "decision_focused",
+    "generated_at":  "2026-06-07T04:53:32Z",
+    "capsule_count":  1,
+    "selected_capsules":  [
+                              {
+                                  "capsule_id":  "e3dbb04096c116ed",
+                                  "owner":  "state_store",
+                                  "lane":  null,
+                                  "kind":  "fallback_digest",
+                                  "updated_at":  null,
+                                  "title":  "Task focus: Create a family business website prototype for OM Store with ordering and delivery tracking",
+                                  "why_now":  "Matched state_store memory for requirement_doc.",
+                                  "expansion_ref":  "C:\\Users\\Hrida\\Downloads\\Om\\outputs\\runtime\\vibe-sessions\\20260607T045325Z-c98cf88e\\memory-activation\\skeleton-local-digest.json#e3dbb04096c116ed",
+                                  "summary_lines":  [
+                                                        "Task focus: Create a family business website prototype for OM Store with ordering and delivery tracking",
+                                                        "Git branch: ",
+                                                        "All required governed runtime prerequisite paths are present."
+                                                    ]
+                              }
+                          ],
+    "items":  [
+                  "Task focus: Create a family business website prototype for OM Store with ordering and delivery tracking",
+                  "Git branch: "
+              ],
+    "estimated_tokens":  29,
+    "budget":  {
+                   "top_k":  2,
+                   "max_tokens":  120,
+                   "max_chars_per_item":  260
+               }
+}

@@ -1,0 +1,23 @@
+{
+  "ok": false,
+  "status": "deferred_no_project_key",
+  "lane": "serena",
+  "store_path": "C:\\Users\\Hrida\\Downloads\\Om\\Vibe-Skills-main\\Vibe-Skills-main\\.vibeskills\\memory\\workspace-memory-plane.jsonl",
+  "project_key": null,
+  "project_key_source": null,
+  "item_count": 0,
+  "items": [],
+  "capsule_count": 0,
+  "capsules": [],
+  "suppressed_count": 0,
+  "workspace_memory_plane": {
+    "schema_version": 1,
+    "workspace_root": "C:\\Users\\Hrida\\Downloads\\Om\\Vibe-Skills-main\\Vibe-Skills-main",
+    "workspace_sidecar_root": "C:\\Users\\Hrida\\Downloads\\Om\\Vibe-Skills-main\\Vibe-Skills-main\\.vibeskills",
+    "descriptor_path": "C:\\Users\\Hrida\\Downloads\\Om\\Vibe-Skills-main\\Vibe-Skills-main\\.vibeskills\\project.json",
+    "workspace_id": "ws:786a1ac1c843d4b4c211d128",
+    "plane_path": "C:\\Users\\Hrida\\Downloads\\Om\\Vibe-Skills-main\\Vibe-Skills-main\\.vibeskills\\memory\\workspace-memory-plane.jsonl"
+  },
+  "driver_mode": "compatibility_shell",
+  "generated_at": "2026-06-07T04:53:32Z"
+}
