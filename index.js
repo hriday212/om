@@ -7,7 +7,7 @@ const products = [
   {
     id: "punjabi-matthri",
     name: "Traditional Punjabi Matthri",
-    description: "Flaky, savory wheat crackers spiced with carom seeds (ajwain) and cracked black pepper. A legacy tea-time companion.",
+    description: "Crispy, flaky mathri spiced with ajwain (carom seeds) and black pepper. Perfect with hot tea or mango pickle.",
     category: "snacks",
     image: "assets/punjabi_matthri.png",
     badgeText: "Best Seller",
@@ -19,7 +19,7 @@ const products = [
   {
     id: "gudd-paare",
     name: "Sweet Gudd Paare",
-    description: "Crispy, hand-rolled wheat bites coated in pure melted organic jaggery (gudd) and a hint of aromatic fennel seeds.",
+    description: "Wheat treats sweetened with jaggery (gudd) and fennel seeds.",
     category: "snacks",
     image: "assets/gudd_paare.png",
     badgeText: "Traditional",
@@ -31,7 +31,7 @@ const products = [
   {
     id: "shakkar-paare",
     name: "Classic Shakkar Paare",
-    description: "Delicate, crispy diamond-shaped bites glazed in a light, crunchy sugar syrup. Cured to melt in your mouth.",
+    description: "Traditional wheat treats glazed with refined sugar syrup.",
     category: "snacks",
     image: "assets/shakkar_paare.png",
     badgeText: "Homemade",
@@ -43,10 +43,10 @@ const products = [
   {
     id: "achar-jackfruit",
     name: "Kathal (Jackfruit) Achar",
-    description: "Exotic, raw jackfruit chunks marinated in cold-pressed mustard oil, split mustard seeds, and vintage Punjabi spices.",
+    description: "Tender jackfruit pieces marinated in pure mustard oil, fennel, and nigella seeds.",
     category: "achar",
     image: "assets/jackfruit_achar.png",
-    badgeText: "Rare Specialty",
+    badgeText: "Specialty",
     pricing: {
       "200g": 160.00,
       "400g": 300.00
@@ -55,7 +55,7 @@ const products = [
   {
     id: "achar-bittergourd",
     name: "Karela (Bitter Gourd) Achar",
-    description: "Slices of premium bitter gourd balanced with dry mango powder (amchur), fennel, and fenugreek seeds. Digestion helper.",
+    description: "Bitter gourd slices seasoned with dry mango powder (amchur), fennel, and mustard oil.",
     category: "achar",
     image: "assets/karela_achar.png",
     badgeText: "Gourmet",
@@ -67,7 +67,7 @@ const products = [
   {
     id: "achar-mango",
     name: "Traditional Aam (Mango) Achar",
-    description: "Sun-cured raw sour mangoes loaded with hot Kashmiri red chillies, fennel, and high-purity mustard oil.",
+    description: "Classic raw mango pickle marinated in mustard oil, red chillies, and traditional spices.",
     category: "achar",
     image: "assets/mango_achar.png",
     badgeText: "Classic",
@@ -79,7 +79,7 @@ const products = [
   {
     id: "achar-karvanda",
     name: "Wild Karvanda (Carandas) Achar",
-    description: "Tart, sour wild berries spiced with green chillies, mustard seeds, and naturally fermented under solar warmth.",
+    description: "Tangy wild karvanda berries pickled with green chillies and mustard seeds.",
     category: "achar",
     image: "assets/karvanda_achar.png",
     badgeText: "Sour & Spicy",
@@ -1150,7 +1150,7 @@ const policies = {
       <p>Welcome to the <strong>Om Coldrink House</strong> online catalog. By placing a simulated order, you agree to these terms:</p>
       <br>
       <h4>1. Store Listings</h4>
-      <p>All items displayed (Matthri, Gudd Paare, Shakkar Paare, Jackfruit, Bitter Gourd, Mango, and Karvanda Pickles) are prepared in our family kitchen at Shop No. 4, 353 Guru Arjun Niwas, Sion West, Mumbai.</p>
+      <p>All items displayed (Matthri, Gudd Paare, Shakkar Paare, Jackfruit, Bitter Gourd, Mango, and Karvanda Pickles) are offered at our family-run store at Shop No. 4, 353 Guru Arjun Niwas, Sion West, Mumbai.</p>
       <br>
       <h4>2. Delivery Limitations</h4>
       <p>Delivery is limited strictly to areas within Mumbai served by local courier partners. Pricing is dynamic based on distance.</p>
