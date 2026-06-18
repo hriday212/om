@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - Om Coldrink House | Generational Punjabi Achar Since 1984</title>
+  
+  <meta name="description" content="Read the story of Om Coldrink House. Established in 1984 in Sion Koliwada, GTB Nagar. Discover our traditional sun-cured Punjabi pickles and handmade teatime savories.">
+  
+  <!-- Google Fonts & FontAwesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="index.css">
+  <style>
+    .about-hero {
+      padding: 120px 0 80px 0;
+      background: linear-gradient(180deg, #1C2E24 0%, #111D16 100%);
+      color: white;
+      text-align: center;
+    }
+    .about-hero h1 {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      color: var(--color-brand-accent);
+    }
+    .about-hero p {
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      color: #A9B8AF;
+      line-height: 1.6;
+    }
+    .story-section {
+      padding: 80px 0;
+      background-color: var(--color-bg-primary);
+    }
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .story-text h2 {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      color: var(--color-brand-primary);
+      margin-bottom: 20px;
+    }
+    .story-text p {
+      color: var(--color-text-muted);
+      line-height: 1.8;
+      margin-bottom: 20px;
+      font-size: 1.05rem;
+    }
+    .story-image img {
+      width: 100%;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--color-border);
+    }
+    .heritage-values {
+      background-color: var(--color-bg-secondary);
+      padding: 80px 0;
+      border-bottom: 1px solid var(--color-border);
+      border-top: 1px solid var(--color-border);
+    }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .value-card {
+      background-color: var(--color-bg-primary);
+      padding: 40px 30px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+      text-align: center;
+      transition: var(--transition-smooth);
+    }
+    .value-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+    }
+    .value-card i {
+      font-size: 2.5rem;
+      color: var(--color-brand-primary);
+      margin-bottom: 20px;
+    }
+    .value-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--color-brand-primary);
+      margin-bottom: 15px;
+    }
+    .value-card p {
+      color: var(--color-text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    @media (max-width: 768px) {
+      .story-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      .values-grid {
+        grid-template-columns: 1fr;
+      }
+      .about-hero h1 {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="announcement-bar">
+    <p><i class="fa-solid fa-location-dot"></i> Now shipping authentic Punjabi specialties across Mumbai from Sion Koliwada, GTB Nagar!</p>
+  </div>
+
+  <!-- Header & Navigation -->
+  <header class="header">
+    <div class="header-container">
+      <a href="index.html" class="brand-logo" id="brand-logo">
+        <span class="brand-om">OM</span>
+        <span class="brand-sub">Coldrink House</span>
+      </a>
+      
+      <nav class="nav-links">
+        <a href="menu.html" class="nav-link">Our Menu</a>
+        <a href="about.html" class="nav-link active">About Us</a>
+        <a href="index.html#process-section" class="nav-link">Sun-Matured Process</a>
+        <a href="index.html#faq-section" class="nav-link">FAQs</a>
+      </nav>
+      
+      <a href="index.html#catalog-section" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.88rem;">Order Online</a>
+    </div>
+  </header>
+
+  <!-- About Hero -->
+  <section class="about-hero">
+    <div class="container">
+      <h1>Our Heritage & Story</h1>
+      <p>Preserving generational culinary traditions and curing pickles under the sun of Sion Koliwada since 1984.</p>
+    </div>
+  </section>
+
+  <!-- Story Section -->
+  <section class="story-section">
+    <div class="story-grid">
+      <div class="story-text">
+        <h2>From Sion Koliwada, With Love</h2>
+        <p>
+          Founded in 1984 by the Julka family at Shop No. 4, Hukamchand Julka Chowk in Sion West/Antop Hill, Om Coldrink House started as a neighborhood store serving cold beverages and local snacks to transit workers and families.
+        </p>
+        <p>
+          Over the decades, we realized that the true heart of our kitchen lay in the traditional Punjabi recipes brought over by our elders. Our family began curing pickles in small batch jars on the open sun-lit terraces of GTB Nagar.
+        </p>
+        <p>
+          Today, we are proud to continue this legacy. Using zero artificial preservatives, pure cold-pressed mustard oil, and hand-ground spices, our pickles are cured naturally under solar warmth for weeks to develop their signature deep, sour flavor.
+        </p>
+        <p>
+          All our spice blends (masalas) are <strong>strictly Om-made</strong> using our secret house recipes. We source our raw materials, pickle ingredients, and grains directly from <strong>Delhi and Punjab</strong> to ensure authenticity. Additionally, we serve our local neighborhood with fresh essentials daily, including pasteurized milk and curd from the renowned <strong>Gokul Company</strong>, premium soft <strong>malai paneer</strong> from local dairies, and fresh <strong>mushrooms</strong>.
+        </p>
+      </div>
+      <div class="story-image">
+        <img src="assets/hero_storefront.png" alt="Om Coldrink House Storefront at Sion Koliwada">
+      </div>
+    </div>
+  </section>
+
+  <!-- Heritage Values -->
+  <section class="heritage-values">
+    <h2 style="text-align: center; font-family: var(--font-display); font-size: 2.5rem; color: var(--color-brand-primary); margin-bottom: 50px;">The Pillars of Our Kitchen</h2>
+    <div class="values-grid">
+      <div class="value-card">
+        <i class="fa-solid fa-sun"></i>
+        <h3>100% Sun-Matured</h3>
+        <p>We do not use high-heat cooking or artificial accelerators. Our pickles cure slowly in glass jars under direct sunlight, preserving the nutritional properties of the spices.</p>
+      </div>
+      <div class="value-card">
+        <i class="fa-solid fa-seedling"></i>
+        <h3>Pure Mustard Oil</h3>
+        <p>Only premium cold-pressed mustard oil is used as a natural preservative, creating the rich pungent base essential for traditional Punjabi achar.</p>
+      </div>
+      <div class="value-card">
+        <i class="fa-solid fa-mortar-pestle"></i>
+        <h3>Generational Recipes</h3>
+        <p>Every single batch of our Jackfruit Achar, Karvanda Achar, and Matthri is spiced exactly according to the family records preserved since 1984.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>Om Coldrink House</h3>
+        <p>Bringing authentic Punjabi achar recipes and teatime dry snacks from Sion Koliwada, GTB Nagar to households across Mumbai.</p>
+        <span class="footer-copyright">© 2026 Om Coldrink House. All rights reserved.</span>
+      </div>
+      <div class="footer-hours">
+        <h4>Store Hours</h4>
+        <p>Monday - Sunday: 8:00 AM - 10:00 PM</p>
+        <p>Pickup & Delivery: 9:00 AM - 8:30 PM</p>
+      </div>
+      <div class="footer-contact">
+        <h4>Find Us & Orders</h4>
+        <p><i class="fa-solid fa-phone"></i> +91 98928 37460 / +91 77389 02561</p>
+        <p><i class="fa-solid fa-location-dot"></i> Shop No. 4, 353 Guru Arjun Niwas, Hukamchand Julka Chowk, Sion (West), Mumbai - 400037</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

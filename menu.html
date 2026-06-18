@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Menu & Pricing - Om Coldrink House | Punjabi Specialty Foods</title>
+  
+  <meta name="description" content="View the full menu and pricing catalog for Om Coldrink House in Sion Koliwada, GTB Nagar. Authentic Punjabi Jackfruit Achar, Karvanda Achar, Matthri, and sweet Paares.">
+  
+  <!-- Google Fonts & FontAwesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="index.css">
+  <style>
+    .menu-hero {
+      padding: 120px 0 60px 0;
+      background: linear-gradient(180deg, #1C2E24 0%, #111D16 100%);
+      color: white;
+      text-align: center;
+    }
+    .menu-hero h1 {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      margin-bottom: 15px;
+      color: var(--color-brand-accent);
+    }
+    .menu-hero p {
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      color: #A9B8AF;
+    }
+    .menu-section {
+      padding: 60px 0 100px 0;
+      background-color: var(--color-bg-primary);
+    }
+    .menu-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .menu-category-title {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      color: var(--color-brand-primary);
+      margin-bottom: 30px;
+      border-bottom: 2px solid var(--color-border);
+      padding-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 30px;
+      margin-bottom: 60px;
+    }
+    .menu-item-card {
+      background-color: var(--color-bg-secondary);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition-smooth);
+    }
+    .menu-item-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+    }
+    .menu-item-image {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .menu-item-content {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    .menu-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+    .menu-item-title {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      color: var(--color-text-primary);
+      font-weight: 600;
+      margin: 0;
+    }
+    .menu-item-badge {
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      background-color: var(--color-brand-primary);
+      color: white;
+      border-radius: 4px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .menu-item-desc {
+      color: var(--color-text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+    .menu-item-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px dashed var(--color-border);
+      padding-top: 15px;
+    }
+    .menu-item-prices {
+      display: flex;
+      gap: 15px;
+    }
+    .price-tag {
+      display: flex;
+      flex-direction: column;
+    }
+    .price-tag .size {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+    }
+    .price-tag .amount {
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--color-brand-primary);
+    }
+    .upcoming-section {
+      background-color: var(--color-bg-secondary);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      border: 1px dashed var(--color-brand-primary-light);
+      margin-top: 60px;
+    }
+    .upcoming-title {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--color-brand-primary);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .upcoming-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .upcoming-card {
+      background-color: var(--color-bg-primary);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      text-align: center;
+    }
+    .upcoming-card i {
+      font-size: 2rem;
+      color: var(--color-brand-accent);
+      margin-bottom: 12px;
+    }
+    .upcoming-card h4 {
+      font-family: var(--font-sans);
+      font-size: 1.1rem;
+      color: var(--color-text-primary);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .upcoming-card p {
+      font-size: 0.88rem;
+      color: var(--color-text-muted);
+      line-height: 1.5;
+    }
+    @media (max-width: 768px) {
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+      .menu-hero h1 {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="announcement-bar">
+    <p><i class="fa-solid fa-location-dot"></i> Now shipping authentic Punjabi specialties across Mumbai from Sion Koliwada, GTB Nagar!</p>
+  </div>
+
+  <!-- Header & Navigation -->
+  <header class="header">
+    <div class="header-container">
+      <a href="index.html" class="brand-logo" id="brand-logo">
+        <span class="brand-om">OM</span>
+        <span class="brand-sub">Coldrink House</span>
+      </a>
+      
+      <nav class="nav-links">
+        <a href="menu.html" class="nav-link active">Our Menu</a>
+        <a href="about.html" class="nav-link">About Us</a>
+        <a href="index.html#process-section" class="nav-link">Sun-Matured Process</a>
+        <a href="index.html#faq-section" class="nav-link">FAQs</a>
+      </nav>
+      
+      <a href="index.html#catalog-section" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.88rem;">Order Online</a>
+    </div>
+  </header>
+
+  <!-- Menu Hero -->
+  <section class="menu-hero">
+    <div class="container">
+      <h1>Our Menu & Specialties</h1>
+      <p>Generational recipes handcrafted in small batches, cured under natural sunlight, and packed fresh.</p>
+    </div>
+  </section>
+
+  <!-- Menu Content Section -->
+  <section class="menu-section">
+    <div class="menu-container">
+      
+      <!-- Sourcing & Spice Heritage Banner -->
+      <div class="heritage-banner" style="background-color: var(--color-bg-secondary); border: 1px solid var(--color-border); border-left: 4px solid var(--color-brand-primary); padding: 20px; border-radius: var(--radius-md); margin-bottom: 40px; display: flex; align-items: center; gap: 20px;">
+        <i class="fa-solid fa-mortar-pestle" style="font-size: 2.5rem; color: var(--color-brand-primary);"></i>
+        <div>
+          <h3 style="font-family: var(--font-sans); font-size: 1.15rem; color: var(--color-brand-primary); font-weight: 700; margin-bottom: 4px;">Om-Made Masala & Authentic Sourcing</h3>
+          <p style="font-size: 0.92rem; color: var(--color-text-muted); line-height: 1.6;">
+            All our specialty spice blends (masalas) are <strong>strictly Om-made</strong> from scratch in-house. To ensure absolute authenticity, all our raw pickle bases and snack ingredients are sourced directly from key markets in <strong>Delhi and Punjab</strong>.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Category: Punjabi Achars -->
+      <h2 class="menu-category-title"><i class="fa-solid fa-mortar-pestle"></i> Traditional Sun-Cured Achars</h2>
+      <div class="menu-grid">
+        
+        <!-- Jackfruit Achar -->
+        <div class="menu-item-card">
+          <img src="assets/jackfruit_achar.png" alt="Kathal (Jackfruit) Achar" class="menu-item-image">
+          <div class="menu-item-content">
+            <div class="menu-item-header">
+              <h3 class="menu-item-title">Kathal (Jackfruit) Achar</h3>
+              <span class="menu-item-badge">Specialty</span>
+            </div>
+            <p class="menu-item-desc">Tender chunks of raw jackfruit cured in pure cold-pressed mustard oil, loaded with nigella seeds, fennel, and premium spices. Exceptional texture.</p>
+            <div class="menu-item-footer">
+              <div class="menu-item-prices">
+                <div class="price-tag">
+                  <span class="size">200g Jar</span>
+                  <span class="amount">₹160</span>
+                </div>
+                <div class="price-tag">
+                  <span class="size">400g Jar</span>
+                  <span class="amount">₹300</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bitter Gourd Achar -->
+        <div class="menu-item-card">
+          <img src="assets/karela_achar.png" alt="Karela (Bitter Gourd) Achar" class="menu-item-image">
+          <div class="menu-item-content">
+            <div class="menu-item-header">
+              <h3 class="menu-item-title">Karela (Bitter Gourd) Achar</h3>
+              <span class="menu-item-badge">Gourmet</span>
+            </div>
+            <p class="menu-item-desc">Premium sliced bitter gourd balanced with dry mango powder (amchur), fenugreek, and split mustard seeds. Naturally aids digestion.</p>
+            <div class="menu-item-footer">
+              <div class="menu-item-prices">
+                <div class="price-tag">
+                  <span class="size">200g Jar</span>
+                  <span class="amount">₹150</span>
+                </div>
+                <div class="price-tag">
+                  <span class="size">400g Jar</span>
+                  <span class="amount">₹280</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mango Achar -->
+        <div class="menu-item-card">
+          <img src="assets/mango_achar.png" alt="Traditional Mango Achar" class="menu-item-image">
+          <div class="menu-item-content">
+            <div class="menu-item-header">
+              <h3 class="menu-item-title">Traditional Mango Achar</h3>
+              <span class="menu-item-badge">Classic</span>
+            </div>
+            <p class="menu-item-desc">Hand-cut sour green mangoes loaded with hot Kashmiri red chillies, fennel, and pure solar-matured mustard oil base.</p>
+            <div class="menu-item-footer">
+              <div class="menu-item-prices">
+                <div class="price-tag">
+                  <span class="size">200g Jar</span>
+                  <span class="amount">₹140</span>
+                </div>
+                <div class="price-tag">
+                  <span class="size">400g Jar</span>
+                  <span class="amount">₹260</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wild Karvanda Achar -->
+        <div class="menu-item-card">
+          <img src="assets/karvanda_achar.png" alt="Wild Karvanda Achar" class="menu-item-image">
+          <div class="menu-item-content">
+            <div class="menu-item-header">
+              <h3 class="menu-item-title">Wild Karvanda Achar</h3>
+              <span class="menu-item-badge">Sour & Spicy</span>
+            </div>
+            <p class="menu-item-desc">Rare forest-cured wild berries, fermented in a tangy blend of green chillies, crushed mustard seeds, and natural salt solar exposure.</p>
+            <div class="menu-item-footer">
+              <div class="menu-item-prices">
+                <div class="price-tag">
+                  <span class="size">200g Jar</span>
+                  <span class="amount">₹160</span>
+                </div>
+                <div class="price-tag">
+                  <span class="size">400g Jar</span>
+                  <span class="amount">₹300</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Category: Hand-rolled Teatime Savories -->
+      <h2 class="menu-category-title"><i class="fa-solid fa-cookie"></i> Hand-Rolled Teatime Savories</h2>
+      <div class="menu-grid">
+        
+        <!-- Punjabi Matthri -->
+        <div class="menu-item-card">
+          <img src="assets/punjabi_matthri.png" alt="Traditional Punjabi Matthri" class="menu-item-image">
+          <div class="menu-item-content">
+            <div class="menu-item-header">
+              <h3 class="menu-item-title">Traditional Matthri</h3>
+              <span class="menu-item-badge">Best Seller</span>
+            </div>
+            <p class="menu-item-desc">Crispy, flaky savories made with premium wheat flour, spiced with carom seeds (ajwain) and coarsely cracked black pepper.</p>
+            <div class="menu-item-footer">
+              <div class="menu-item-prices">
+                <div class="price-tag">
+                  <span class="size">200g Pack</span>
+                  <span class="amount">₹120</span>
+                </div>
+                <div class="price-tag">
+                  <span class="size">400g Pack</span>
+                  <span class="amount">₹220</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gudd Paare -->
+        <div class="menu-item-card">
+          <img src="assets/gudd_paare.png" alt="Sweet Gudd Paare" class="menu-item-image">
+          <div class="menu-item-content">
+            <div class="menu-item-header">
+              <h3 class="menu-item-title">Sweet Gudd Paare</h3>
+              <span class="menu-item-badge">Traditional</span>
+            </div>
+            <p class="menu-item-desc">Crispy wheat bites coated in pure melted organic jaggery (gudd) and a aromatic infusion of fennel seeds.</p>
+            <div class="menu-item-footer">
+              <div class="menu-item-prices">
+                <div class="price-tag">
+                  <span class="size">200g Pack</span>
+                  <span class="amount">₹140</span>
+                </div>
+                <div class="price-tag">
+                  <span class="size">400g Pack</span>
+                  <span class="amount">₹260</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Shakkar Paare -->
+        <div class="menu-item-card">
+          <img src="assets/shakkar_paare.png" alt="Classic Shakkar Paare" class="menu-item-image">
+          <div class="menu-item-content">
+            <div class="menu-item-header">
+              <h3 class="menu-item-title">Classic Shakkar Paare</h3>
+              <span class="menu-item-badge">Homemade</span>
+            </div>
+            <p class="menu-item-desc">Crunchy, diamond-cut wheat treats glazed in a delicate, glassy sugar syrup shell. Crisp and delicious.</p>
+            <div class="menu-item-footer">
+              <div class="menu-item-prices">
+                <div class="price-tag">
+                  <span class="size">200g Pack</span>
+                  <span class="amount">₹130</span>
+                </div>
+                <div class="price-tag">
+                  <span class="size">400g Pack</span>
+                  <span class="amount">₹240</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Category: Daily Fresh Dairy & Produce -->
+      <h2 class="menu-category-title"><i class="fa-solid fa-cow"></i> Daily Fresh Dairy & Produce</h2>
+      <div class="menu-grid" style="margin-bottom: 50px;">
+        
+        <!-- Gokul Milk & Curd -->
+        <div class="menu-item-card">
+          <img src="assets/masala_soda.png" alt="Gokul Milk & Curd" class="menu-item-image">
+          <div class="menu-item-content">
+            <div class="menu-item-header">
+              <h3 class="menu-item-title">Gokul Milk & Curd</h3>
+              <span class="menu-item-badge">Fresh Daily</span>
+            </div>
+            <p class="menu-item-desc">Premium quality pasteurized milk and thick, creamy curd sourced fresh daily from Gokul Company. Perfect nutrition for the family.</p>
+            <div class="menu-item-footer">
+              <div class="menu-item-prices">
+                <div class="price-tag">
+                  <span class="size">Gokul Milk (500ml)</span>
+                  <span class="amount">₹33</span>
+                </div>
+                <div class="price-tag">
+                  <span class="size">Gokul Curd (400g)</span>
+                  <span class="amount">₹55</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Malai Paneer -->
+        <div class="menu-item-card">
+          <img src="assets/ommade_masala.png" alt="Fresh Malai Paneer" class="menu-item-image">
+          <div class="menu-item-content">
+            <div class="menu-item-header">
+              <h3 class="menu-item-title">Fresh Malai Paneer</h3>
+              <span class="menu-item-badge">Selected Dairy</span>
+            </div>
+            <p class="menu-item-desc">Extremely soft, rich, and high-fat Malai Paneer sourced fresh from a selected partner dairy. Melt-in-the-mouth texture for your paneer curries.</p>
+            <div class="menu-item-footer">
+              <div class="menu-item-prices">
+                <div class="price-tag">
+                  <span class="size">200g Pack</span>
+                  <span class="amount">₹90</span>
+                </div>
+                <div class="price-tag">
+                  <span class="size">400g Pack</span>
+                  <span class="amount">₹175</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fresh Mushrooms -->
+        <div class="menu-item-card">
+          <img src="assets/karvanda_achar.png" alt="Fresh Button Mushrooms" class="menu-item-image">
+          <div class="menu-item-content">
+            <div class="menu-item-header">
+              <h3 class="menu-item-title">Fresh Button Mushrooms</h3>
+              <span class="menu-item-badge">Produce</span>
+            </div>
+            <p class="menu-item-desc">Plump, fresh, and hand-selected white button mushrooms. Delivered fresh to the store daily, perfect for stir-fries, curries, and tandoors.</p>
+            <div class="menu-item-footer">
+              <div class="menu-item-prices">
+                <div class="price-tag">
+                  <span class="size">200g Pack</span>
+                  <span class="amount">₹60</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Upcoming Dry Goods -->
+      <div class="upcoming-section">
+        <h3 class="upcoming-title"><i class="fa-solid fa-hourglass-half"></i> Coming Soon: Upcoming Dry Goods & Beverages</h3>
+        <div class="upcoming-grid">
+          
+          <div class="upcoming-card">
+            <i class="fa-solid fa-wine-glass"></i>
+            <h4>Punjabi Masala Soda</h4>
+            <p>Our upcoming legendary cooling carbonated soda mixed with mint extracts, black salt, and hand-milled secret spice blend.</p>
+          </div>
+
+          <div class="upcoming-card">
+            <i class="fa-solid fa-bread-slice"></i>
+            <h4>Butter Toast Khari</h4>
+            <p>Super airy, light puff pastry biscuits made with double churned table butter, designed for dipping in morning tea.</p>
+          </div>
+
+          <div class="upcoming-card">
+            <i class="fa-solid fa-jar"></i>
+            <h4>Sun-Dried Red Chilli Achar</h4>
+            <p>Fat Banarasi red chillies stuffed with mustard meal, dry mango powder, and sun-baked in glass jars.</p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>Om Coldrink House</h3>
+        <p>Bringing authentic Punjabi achar recipes and teatime dry snacks from Sion Koliwada, GTB Nagar to households across Mumbai.</p>
+        <span class="footer-copyright">© 2026 Om Coldrink House. All rights reserved.</span>
+      </div>
+      <div class="footer-hours">
+        <h4>Store Hours</h4>
+        <p>Monday - Sunday: 8:00 AM - 10:00 PM</p>
+        <p>Pickup & Delivery: 9:00 AM - 8:30 PM</p>
+      </div>
+      <div class="footer-contact">
+        <h4>Find Us & Orders</h4>
+        <p><i class="fa-solid fa-phone"></i> +91 98928 37460 / +91 77389 02561</p>
+        <p><i class="fa-solid fa-location-dot"></i> Shop No. 4, 353 Guru Arjun Niwas, Hukamchand Julka Chowk, Sion (West), Mumbai - 400037</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -269,11 +269,10 @@
       </a>
       
       <nav class="nav-links">
-        <a href="#catalog-section" class="nav-link">Our Punjabi Menu</a>
-        <a href="#heritage" class="nav-link">The Legacy</a>
-        <a href="#process-section" class="nav-link">Sun-Matured Process</a>
-        <a href="#seo-guide-section" class="nav-link">Flavor Guide</a>
-        <a href="#faq-section" class="nav-link">FAQs</a>
+        <a href="menu.html" class="nav-link">Our Menu</a>
+        <a href="about.html" class="nav-link">About Us</a>
+        <a href="index.html#process-section" class="nav-link">Sun-Matured Process</a>
+        <a href="index.html#faq-section" class="nav-link">FAQs</a>
       </nav>
       
       <button class="cart-trigger" id="cart-trigger" aria-label="Open Shopping Cart">
@@ -290,7 +289,7 @@
         <span class="hero-tagline">Since 1984 • Sion Koliwada, GTB Nagar</span>
         <h1 class="hero-title">Handcrafted Punjabi Pickles & Crispy Savories</h1>
         <p class="hero-description">
-          Welcome to <strong>Om Coldrink House</strong>. We preserve the generational flavors of Punjab right in the heart of GTB Nagar, Mumbai. Indulge in our famous sun-matured achars—from rare jackfruit and local karvanda to traditional mango—alongside our hand-rolled matthri and sweet paares.
+          Welcome to <strong>Om Coldrink House</strong>. We preserve generational flavors in the heart of GTB Nagar, Mumbai. Indulge in our famous sun-matured achars, hand-rolled matthri, and sweet paares made with <strong>Om-made masalas</strong> and authentic ingredients sourced from <strong>Delhi and Punjab</strong>. We also offer fresh daily essentials like <strong>Gokul milk & curd</strong>, selected dairy <strong>malai paneer</strong>, and fresh <strong>mushrooms</strong>.
         </p>
         <div class="hero-ctas">
           <a href="#catalog-section" class="btn btn-primary">Order Online</a>
@@ -555,7 +554,6 @@
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
-      
       <div class="checkout-body">
         <form class="checkout-form" id="checkout-form" onsubmit="event.preventDefault();">
           <div class="form-section">
@@ -572,9 +570,9 @@
             </div>
 
             <div class="form-group">
-              <label for="delivery-address">Address Line 1: Locality / Area (Pin on Map)</label>
+              <label for="delivery-address">Address Line 1: Locality / Area</label>
               <div class="address-input-wrapper">
-                <input type="text" id="delivery-address" placeholder="Click 'Pin on Map' to locate" required readonly style="background-color: var(--color-bg-secondary); cursor: pointer;" onclick="openMapPicker()">
+                <input type="text" id="delivery-address" placeholder="Type your address or use 'Pin on Map'" required style="background-color: var(--color-bg-primary);">
                 <button type="button" class="btn-locate-map" id="btn-locate-map">
                   <i class="fa-solid fa-location-dot"></i> Pin on Map
                 </button>
@@ -585,19 +583,58 @@
 
             <div class="form-group">
               <label for="delivery-building">Address Line 2: Flat / Room / Building / Landmark</label>
-              <input type="text" id="delivery-building" placeholder="e.g. Flat 302, 3rd Floor, Julka Niwas, near Hazara Hotel" required>
+              <input type="text" id="delivery-building" placeholder="e.g. Flat 302, 3rd Floor, near Hazara Hotel" required>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+              <div class="form-group">
+                <label for="delivery-date">Delivery Date</label>
+                <select id="delivery-date" required>
+                  <!-- Populated dynamically -->
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label for="delivery-time">Preferred Slot</label>
+                <select id="delivery-time" required>
+                  <option value="">Select slot</option>
+                  <option value="afternoon">Afternoon (12 PM - 4 PM)</option>
+                  <option value="evening">Evening (4 PM - 8 PM)</option>
+                </select>
+              </div>
             </div>
           </div>
           
           <div class="form-section" id="carrier-selection-section">
             <h3>2. Delivery Option</h3>
-            <p class="carrier-desc">Direct delivery rate via Borzo:</p>
-            
             <div class="delivery-options-list" id="delivery-options-list">
               <div class="carrier-prompt">
                 <i class="fa-solid fa-map-location-dot"></i>
-                <p>Pin your location on the map to calculate live delivery fare.</p>
+                <p>Enter your location or pin on the map to view delivery options.</p>
               </div>
+            </div>
+          </div>
+
+          <div class="form-section" id="payment-verification-section">
+            <h3>3. Payment Verification</h3>
+            <p class="payment-desc" style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 15px;">
+              Scan the UPI QR code below with any UPI app (GPay, PhonePe, Paytm) to make the payment, then enter the 12-digit transaction UTR number.
+            </p>
+            
+            <div class="upi-payment-box" style="display: flex; align-items: center; gap: 20px; background-color: var(--color-bg-secondary); padding: 15px; border-radius: var(--radius-md); border: 1px solid var(--color-border); margin-bottom: 15px;">
+              <div class="upi-qr-placeholder" style="background-color: white; padding: 8px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; width: 110px; height: 110px; border: 1px solid var(--color-border);">
+                <img id="upi-qr-image" src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=upi://pay?pa=9892837460@okbizaxis%26pn=Om%2520Coldrink%2520House%26cu=INR" alt="UPI QR Code" style="width: 100%; height: auto; display: block;">
+              </div>
+              <div class="upi-details" style="font-size: 0.88rem; display: flex; flex-direction: column; gap: 4px;">
+                <strong style="color: var(--color-brand-primary); font-family: var(--font-display);">Om Coldrink House</strong>
+                <span>UPI ID: <strong style="color: var(--color-text-primary);">9892837460@okbizaxis</strong></span>
+                <span style="color: var(--color-text-muted); font-size: 0.82rem;">Or pay to: <strong>+91 98928 37460</strong></span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="payment-utr">UPI Transaction UTR / Ref Number (12 Digits)</label>
+              <input type="text" id="payment-utr" placeholder="e.g. 314598762514" minlength="12" maxlength="12" pattern="\d{12}" required style="letter-spacing: 2px; font-weight: 600;">
             </div>
           </div>
         </form>
@@ -743,9 +780,8 @@
       </div>
     </div>
     
-    <!-- Indian E-Commerce Compliance & Consumer Disclosures -->
     <div class="footer-compliance" style="border-top: 1px solid #2A3E34; margin-top: 40px; padding-top: 24px; font-size: 0.8rem; color: #8C9E94;">
-      <div class="footer-container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; padding: 0;">
+      <div class="footer-compliance-grid">
         <div>
           <h5 style="color: var(--color-white); margin-bottom: 8px; font-family: var(--font-sans); font-size: 0.9rem; font-weight: 600;">Government Disclosures & Licensing</h5>
           <p style="margin-bottom: 4px;">FSSAI Status: <strong>Registration Pending (Applied)</strong></p>

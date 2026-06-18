@@ -180,14 +180,14 @@ function renderCatalog(filter = "all") {
         <div class="packaging-selector-wrapper">
           <span class="packaging-label">Select Packaging:</span>
           <div class="packaging-options">
-            <button class="pack-btn ${currentSize === '200g' ? 'selected' : ''}" data-id="${product.id}" data-size="200g">200 gms</button>
-            <button class="pack-btn ${currentSize === '400g' ? 'selected' : ''}" data-id="${product.id}" data-size="400g">400 gms</button>
+            <button class="pack-btn ${currentSize === '200g' ? 'selected' : ''}" id="btn-${product.id}-200g" data-id="${product.id}" data-size="200g">200 gms</button>
+            <button class="pack-btn ${currentSize === '400g' ? 'selected' : ''}" id="btn-${product.id}-400g" data-id="${product.id}" data-size="400g">400 gms</button>
           </div>
         </div>
 
         <div class="product-footer">
           <div>
-            <span class="product-price-label">Price (${currentSize})</span>
+            <span class="product-price-label" id="pricelabel-${product.id}">Price (${currentSize})</span>
             <span class="product-price" id="price-${product.id}">₹${currentPrice.toFixed(2)}</span>
           </div>
           <button class="btn-add-cart" data-id="${product.id}" aria-label="Add to cart">
@@ -209,18 +209,19 @@ function renderCatalog(filter = "all") {
       // Update selected sizes state
       selectedSizes[pid] = size;
       
-      // Update toggle buttons class
-      const parent = e.target.closest(".packaging-options");
-      parent.querySelectorAll(".pack-btn").forEach(b => b.classList.remove("selected"));
-      e.target.classList.add("selected");
+      // Update toggle buttons class directly by ID
+      const btn200 = document.getElementById(`btn-${pid}-200g`);
+      const btn400 = document.getElementById(`btn-${pid}-400g`);
+      if (btn200) btn200.classList.toggle("selected", size === "200g");
+      if (btn400) btn400.classList.toggle("selected", size === "400g");
       
-      // Update displayed price
+      // Update displayed price and label directly by ID
       const product = products.find(p => p.id === pid);
       const priceText = document.getElementById(`price-${pid}`);
-      const priceLabel = e.target.closest(".product-content").querySelector(".product-price-label");
+      const priceLabel = document.getElementById(`pricelabel-${pid}`);
       
-      priceText.textContent = `₹${product.pricing[size].toFixed(2)}`;
-      priceLabel.textContent = `Price (${size})`;
+      if (priceText) priceText.textContent = `₹${product.pricing[size].toFixed(2)}`;
+      if (priceLabel) priceLabel.textContent = `Price (${size})`;
     });
   });
 
@@ -426,6 +427,36 @@ if (deliveryBuildingInput) {
   });
 }
 
+let addressAutocomplete = null;
+function initGoogleAutocompletes() {
+  if (typeof google === "undefined" || !google.maps || !google.maps.places) {
+    setTimeout(initGoogleAutocompletes, 100);
+    return;
+  }
+  const addressField = document.getElementById("delivery-address");
+  if (addressField && !addressAutocomplete) {
+    addressAutocomplete = new google.maps.places.Autocomplete(addressField, {
+      componentRestrictions: { country: "in" },
+      fields: ["geometry", "formatted_address", "name"],
+      types: ["geocode", "establishment"]
+    });
+    
+    addressAutocomplete.addListener("place_changed", () => {
+      const place = addressAutocomplete.getPlace();
+      if (place.geometry && place.geometry.location) {
+        selectedLat = place.geometry.location.lat();
+        selectedLng = place.geometry.location.lng();
+        selectedLocalityString = place.formatted_address || place.name || "";
+        
+        deliveryLatInput.value = selectedLat;
+        deliveryLngInput.value = selectedLng;
+        
+        calculateRealOrMockRates();
+      }
+    });
+  }
+}
+
 function openMapPicker() {
   mapPickerModalOverlay.classList.add("active");
   
@@ -565,6 +596,65 @@ function closeMapPickerModal() {
   mapPickerModalOverlay.classList.remove("active");
 }
 
+function checkLocalDeliveryZone(address) {
+  if (!address) return false;
+  const clean = address.toLowerCase();
+  const localKeywords = [
+    "gtb nagar", "rawli camp", "antop hill", "antophill",
+    "cuff parade", "pratiksha nagar", "sion", "matunga", "dadar", "sion hospital"
+  ];
+  return localKeywords.some(keyword => clean.includes(keyword));
+}
+
+function calculateCartWeight() {
+  let totalWeight = 0;
+  cart.forEach(item => {
+    // Glass jar and items weight estimation: 200g size is ~0.4kg total, 400g size is ~0.8kg total
+    const itemWeight = item.size === "200g" ? 0.4 : 0.8;
+    totalWeight += itemWeight * item.quantity;
+  });
+  return totalWeight;
+}
+
+function selectCarrier(partner, charge) {
+  document.querySelectorAll(".option-card").forEach(card => card.classList.remove("selected"));
+  
+  if (partner === 'local') {
+    const localCard = document.getElementById("carrier-local");
+    if (localCard) localCard.classList.add("selected");
+    const localInput = document.querySelector('input[value="local"]');
+    if (localInput) localInput.checked = true;
+    selectedDeliveryPartner = {
+      partner: "local",
+      brand: "Om Delivery Rider",
+      charge: 20.00,
+      eta: 240,
+      riderName: "Om Store Rider",
+      riderPhone: "+91 98928 37460"
+    };
+    deliveryCharge = 20.00;
+    
+    // Auto-select afternoon slot for local delivery
+    const slotInput = document.getElementById("delivery-time");
+    if (slotInput) slotInput.value = "afternoon";
+  } else {
+    const borzoCard = document.getElementById("carrier-borzo");
+    if (borzoCard) borzoCard.classList.add("selected");
+    const borzoInput = document.querySelector('input[value="borzo"]');
+    if (borzoInput) borzoInput.checked = true;
+    selectedDeliveryPartner = {
+      partner: "borzo",
+      brand: "Borzo (Express Delivery)",
+      charge: charge,
+      eta: 25,
+      riderName: "Vijay Sharma",
+      riderPhone: "+91 98123 45678"
+    };
+    deliveryCharge = charge;
+  }
+  updateCheckoutTotals();
+}
+
 async function calculateRealOrMockRates() {
   const address = deliveryAddressInput.value.trim();
   const building = deliveryBuildingInput.value.trim();
@@ -573,7 +663,7 @@ async function calculateRealOrMockRates() {
   const latVal = deliveryLatInput.value;
   const lngVal = deliveryLngInput.value;
   
-  if (!address || address.includes("Click 'Pin on Map'")) {
+  if (!address || address.includes("Click 'Pin on Map'") || address.includes("Type your address")) {
     resetDeliveryRates();
     return;
   }
@@ -581,9 +671,11 @@ async function calculateRealOrMockRates() {
   deliveryOptionsList.innerHTML = `
     <div class="carrier-prompt">
       <i class="fa-solid fa-circle-notch fa-spin" style="color: var(--color-brand-primary); font-size: 1.8rem; margin-bottom: 10px;"></i>
-      <p>Calculating live Borzo delivery fare...</p>
+      <p>Calculating delivery fares...</p>
     </div>
   `;
+  
+  const cartWeight = calculateCartWeight();
   
   try {
     const points = [
@@ -615,6 +707,7 @@ async function calculateRealOrMockRates() {
       },
       body: JSON.stringify({
         matter: "Fresh Pickles & Snacks (Om Coldrink House)",
+        weight: cartWeight,
         points: points
       })
     });
@@ -637,28 +730,80 @@ async function calculateRealOrMockRates() {
 }
 
 function displayRates(borzoRate) {
-  deliveryOptionsList.innerHTML = `
-    <label class="option-card selected" id="carrier-borzo">
-      <input type="radio" name="delivery_partner" value="borzo" checked>
-      <div class="option-details">
-        <span class="partner-name">Borzo (Express Delivery)</span>
-        <span class="eta"><i class="fa-regular fa-clock"></i> Est: 20-35 mins</span>
+  const address = deliveryAddressInput.value.trim();
+  const isLocal = checkLocalDeliveryZone(address);
+  
+  let optionsHtml = "";
+  
+  if (isLocal) {
+    optionsHtml += `
+      <div class="option-card selected" id="carrier-local" onclick="selectCarrier('local', 20.00)" style="cursor: pointer; display: flex; align-items: center; justify-content: space-between; border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 12px; margin-bottom: 10px; background-color: var(--color-bg-primary);">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <input type="radio" name="delivery_partner" value="local" checked style="margin: 0; width: auto; cursor: pointer;">
+          <div class="option-details">
+            <span class="partner-name" style="font-weight: 600; color: var(--color-brand-primary);"><i class="fa-solid fa-bicycle"></i> Om Delivery Rider (Local Zone)</span>
+            <span class="eta" style="display: block; font-size: 0.8rem; color: var(--color-text-muted);"><i class="fa-regular fa-clock"></i> Afternoon delivery (12 PM - 4 PM)</span>
+          </div>
+        </div>
+        <div style="text-align: right; display: flex; flex-direction: column; align-items: flex-end;">
+          <span class="price" style="font-weight: 700; color: var(--color-text-primary);">₹20.00</span>
+          <span class="badge" style="font-size: 0.72rem; padding: 2px 6px; border-radius: 4px; background-color: var(--color-brand-primary-light); color: var(--color-brand-primary); font-weight: 600; margin-top: 4px;">Local Saver</span>
+        </div>
       </div>
-      <span class="price">₹${borzoRate.toFixed(2)}</span>
-      <span class="badge">Direct Courier</span>
-    </label>
-  `;
+      
+      <div class="option-card" id="carrier-borzo" onclick="selectCarrier('borzo', ${borzoRate})" style="cursor: pointer; display: flex; align-items: center; justify-content: space-between; border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 12px; margin-bottom: 10px; background-color: var(--color-bg-primary);">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <input type="radio" name="delivery_partner" value="borzo" style="margin: 0; width: auto; cursor: pointer;">
+          <div class="option-details">
+            <span class="partner-name" style="font-weight: 600; color: var(--color-text-primary);">Borzo (Express Courier)</span>
+            <span class="eta" style="display: block; font-size: 0.8rem; color: var(--color-text-muted);"><i class="fa-regular fa-clock"></i> Delivery in 20-35 mins</span>
+          </div>
+        </div>
+        <div style="text-align: right; display: flex; flex-direction: column; align-items: flex-end;">
+          <span class="price" style="font-weight: 700; color: var(--color-text-primary);">₹${borzoRate.toFixed(2)}</span>
+          <span class="badge" style="font-size: 0.72rem; padding: 2px 6px; border-radius: 4px; background-color: var(--color-bg-secondary); color: var(--color-text-muted); font-weight: 600; margin-top: 4px;">Direct Courier</span>
+        </div>
+      </div>
+    `;
+    
+    selectedDeliveryPartner = {
+      partner: "local",
+      brand: "Om Delivery Rider",
+      charge: 20.00,
+      eta: 240,
+      riderName: "Om Store Rider",
+      riderPhone: "+91 98928 37460"
+    };
+    deliveryCharge = 20.00;
+  } else {
+    optionsHtml += `
+      <div class="option-card selected" id="carrier-borzo" onclick="selectCarrier('borzo', ${borzoRate})" style="cursor: pointer; display: flex; align-items: center; justify-content: space-between; border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 12px; margin-bottom: 10px; background-color: var(--color-bg-primary);">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <input type="radio" name="delivery_partner" value="borzo" checked style="margin: 0; width: auto; cursor: pointer;">
+          <div class="option-details">
+            <span class="partner-name" style="font-weight: 600; color: var(--color-text-primary);">Borzo (Express Courier)</span>
+            <span class="eta" style="display: block; font-size: 0.8rem; color: var(--color-text-muted);"><i class="fa-regular fa-clock"></i> Delivery in 20-35 mins</span>
+          </div>
+        </div>
+        <div style="text-align: right; display: flex; flex-direction: column; align-items: flex-end;">
+          <span class="price" style="font-weight: 700; color: var(--color-text-primary);">₹${borzoRate.toFixed(2)}</span>
+          <span class="badge" style="font-size: 0.72rem; padding: 2px 6px; border-radius: 4px; background-color: var(--color-bg-secondary); color: var(--color-text-muted); font-weight: 600; margin-top: 4px;">Direct Courier</span>
+        </div>
+      </div>
+    `;
+    
+    selectedDeliveryPartner = {
+      partner: "borzo",
+      brand: "Borzo (Express Delivery)",
+      charge: borzoRate,
+      eta: 25,
+      riderName: "Vijay Sharma",
+      riderPhone: "+91 98123 45678"
+    };
+    deliveryCharge = borzoRate;
+  }
   
-  selectedDeliveryPartner = {
-    partner: "borzo",
-    brand: "Borzo (Express Delivery)",
-    charge: borzoRate,
-    eta: 25,
-    riderName: "Vijay Sharma",
-    riderPhone: "+91 98123 45678"
-  };
-  
-  deliveryCharge = borzoRate;
+  deliveryOptionsList.innerHTML = optionsHtml;
   updateCheckoutTotals();
   placeOrderBtn.removeAttribute("disabled");
 }
@@ -668,45 +813,128 @@ function updateCheckoutTotals() {
   const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const grandTotal = subtotal + deliveryCharge;
   summaryGrandTotal.textContent = `₹${grandTotal.toFixed(2)}`;
+  
+  // Dynamic UPI QR Code updater
+  const qrImage = document.getElementById("upi-qr-image");
+  if (qrImage) {
+    const amount = grandTotal.toFixed(2);
+    qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=upi://pay?pa=9892837460@okbizaxis%26pn=Om%2520Coldrink%2520House%26am=${amount}%26cu=INR`;
+  }
 }
 
-// ==========================================================================
-// Live Order Tracker Engine
-// ==========================================================================
+function populateDeliveryDates() {
+  const dateSelect = document.getElementById("delivery-date");
+  if (!dateSelect) return;
+  dateSelect.innerHTML = "";
+  
+  const today = new Date();
+  const tomorrow = new Date();
+  tomorrow.setDate(today.getDate() + 1);
+  
+  const options = [
+    { value: "today", label: `Today, ${today.toLocaleDateString("en-US", { month: "short", day: "numeric" })}` },
+    { value: "tomorrow", label: `Tomorrow, ${tomorrow.toLocaleDateString("en-US", { month: "short", day: "numeric" })}` }
+  ];
+  
+  options.forEach(opt => {
+    const o = document.createElement("option");
+    o.value = opt.value;
+    o.textContent = opt.label;
+    dateSelect.appendChild(o);
+  });
+}
+
+function validateCheckoutTimeConstraints() {
+  const dateSelect = document.getElementById("delivery-date");
+  const timeSelect = document.getElementById("delivery-time");
+  
+  if (!dateSelect || !timeSelect) return true;
+  
+  const selectedDateVal = dateSelect.value;
+  const selectedSlot = timeSelect.value;
+  
+  if (!selectedDateVal || !selectedSlot) {
+    alert("Please select a delivery date and time slot.");
+    return false;
+  }
+  
+  const now = new Date();
+  const currentHour = now.getHours();
+  
+  if (selectedDateVal === "today") {
+    // Local Delivery must be before 10 AM same day
+    if (selectedDeliveryPartner && selectedDeliveryPartner.partner === "local") {
+      if (currentHour >= 10) {
+        alert("Same-day local rider deliveries must be placed before 10:00 AM. Please select 'Tomorrow' for local rider, or choose 'Borzo Express Courier' for today's delivery.");
+        return false;
+      }
+    }
+    
+    // Slots must be 1 hour in the future
+    if (selectedSlot === "afternoon" && currentHour >= 11) {
+      alert("Afternoon slot (12 PM - 4 PM) is unavailable for same-day delivery. Please select Evening slot or Tomorrow.");
+      return false;
+    }
+    
+    if (selectedSlot === "evening" && currentHour >= 15) {
+      alert("Evening slot (4 PM - 8 PM) is unavailable for same-day delivery. Please select Tomorrow.");
+      return false;
+    }
+  }
+  
+  return true;
+}
 
 function handleOrderPlacement() {
   const name = document.getElementById("customer-name").value.trim();
   const phone = document.getElementById("customer-phone").value.trim();
   const building = document.getElementById("delivery-building").value.trim();
   const locality = document.getElementById("delivery-address").value.trim();
+  const utr = document.getElementById("payment-utr").value.trim();
+  const dateVal = document.getElementById("delivery-date").value;
+  const slotVal = document.getElementById("delivery-time").value;
   
   if (!name || !phone || !locality || !selectedDeliveryPartner) {
     alert("Please complete the delivery details first.");
     return;
   }
   
+  if (!utr || !/^\d{12}$/.test(utr)) {
+    alert("Please enter a valid 12-digit UPI Transaction UTR number.");
+    return;
+  }
+  
+  if (!validateCheckoutTimeConstraints()) {
+    return;
+  }
+  
   const fullAddress = building ? `${building}, ${locality}` : locality;
   
   placeOrderBtn.setAttribute("disabled", "true");
-  placeOrderBtn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Processing Order...`;
+  placeOrderBtn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Submitting payment details...`;
   
   setTimeout(() => {
     const randomHex = Math.floor((1 + Math.random()) * 0x10000000).toString(16).substring(1);
     const orderId = `OM-${randomHex.substring(0, 8).toUpperCase()}`;
     
-    toggleCheckoutModal();
+    // Clear cart
     const orderedItems = [...cart];
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const grandTotal = subtotal + deliveryCharge;
+    
     cart = [];
     updateCartUI();
+    toggleCheckoutModal();
     
-    launchLiveTracker(orderId, name, phone, fullAddress, orderedItems, selectedDeliveryPartner);
+    // Launch Live Tracker with "Pending Admin Verification"
+    launchLiveTracker(orderId, name, phone, fullAddress, orderedItems, selectedDeliveryPartner, utr, grandTotal, dateVal, slotVal);
     
     placeOrderBtn.removeAttribute("disabled");
     placeOrderBtn.textContent = "Confirm Order";
   }, 1500);
 }
 
-function launchLiveTracker(orderId, name, phone, address, items, carrier) {
+function launchLiveTracker(orderId, name, phone, address, items, carrier, utr, totalAmount, dateVal, slotVal) {
   trackerOrderId.textContent = `Order ${orderId}`;
   trackerModalOverlay.classList.add("active");
   
@@ -721,7 +949,7 @@ function launchLiveTracker(orderId, name, phone, address, items, carrier) {
     trackerItemsList.appendChild(row);
   });
   
-  courierName.textContent = "Rider Assigning...";
+  courierName.textContent = "Verifying Payment...";
   carrierBrand.textContent = `Partner: ${carrier.brand}`;
   trackingLinkBtn.style.opacity = "0.5";
   trackingLinkBtn.style.pointerEvents = "none";
@@ -731,26 +959,85 @@ function launchLiveTracker(orderId, name, phone, address, items, carrier) {
   const currentFormattedTime = new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: false });
   timeReceived.textContent = currentFormattedTime;
   
-  whatsappMessagePreview.textContent = `"Hi ${name}, your order ${orderId} has been received by Om Coldrink House! We are preparing your fresh jar of pickle."`;
+  // Custom styled step texts
+  const stepText1 = document.querySelector("#step-received p");
+  if (stepText1) stepText1.innerHTML = `<strong>Payment Awaiting</strong><br><small id="time-received">${currentFormattedTime}</small>`;
+  
+  trackerStatusText.innerHTML = `<i class="fa-solid fa-spinner fa-spin" style="color: var(--color-brand-primary);"></i> Awaiting admin payment approval for UTR: <strong>${utr}</strong> (₹${totalAmount.toFixed(2)}).`;
+  
+  // Format items description for WhatsApp message
+  const itemsText = items.map(item => `${item.name} (${item.size}) x${item.quantity}`).join(", ");
+  
+  // Admin approval URL (cross-tab interaction ready!)
+  const adminApprovalUrl = `https://omcoldrinkhouse.com/admin.html?orderId=${orderId}&name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}&address=${encodeURIComponent(address)}&utr=${utr}&amount=${totalAmount.toFixed(2)}&delivery=${carrier.partner}&weight=${calculateCartWeight()}`;
+  
+  // Fill text area preview
+  whatsappMessagePreview.textContent = `"Hi ${name}, order ${orderId} submitted! UTR: ${utr}. Awaiting verification. Admin approval portal link generated."`;
+  
+  // Primary trigger to whatsapp contact for verification
+  const userWaText = encodeURIComponent(`Hi Om Coldrink House, I have placed order ${orderId} for ₹${totalAmount.toFixed(2)}. UPI UTR Number: ${utr}. Please approve my order!\n\nDetails:\nAddress: ${address}\nItems: ${itemsText}\nDelivery Date/Slot: ${dateVal} - ${slotVal}\n\nMerchant Approval Link:\n${adminApprovalUrl}`);
+  
+  const whatsappSendLink = document.createElement("a");
+  whatsappSendLink.href = `https://wa.me/919892837460?text=${userWaText}`;
+  whatsappSendLink.target = "_blank";
+  whatsappSendLink.style.display = "block";
+  whatsappSendLink.style.textAlign = "center";
+  whatsappSendLink.style.marginTop = "15px";
+  whatsappSendLink.style.padding = "10px";
+  whatsappSendLink.style.backgroundColor = "#25D366";
+  whatsappSendLink.style.color = "white";
+  whatsappSendLink.style.borderRadius = "var(--radius-sm)";
+  whatsappSendLink.style.fontWeight = "600";
+  whatsappSendLink.style.textDecoration = "none";
+  whatsappSendLink.innerHTML = `<i class="fa-brands fa-whatsapp"></i> Send Payment Receipt on WhatsApp`;
+  
+  // Append after whatsappMessagePreview
+  const previewParent = whatsappMessagePreview.parentElement;
+  const existingWaButton = previewParent.querySelector(".wa-send-receipt-btn");
+  if (existingWaButton) existingWaButton.remove();
+  whatsappSendLink.className = "wa-send-receipt-btn";
+  previewParent.appendChild(whatsappSendLink);
   
   let timeElapsed = 0;
-  trackerStatusText.textContent = "We have received your order and are confirming inventory at Sion Koliwada.";
+  let isApproved = false;
   
   if (trackerInterval) clearInterval(trackerInterval);
+  
+  // Listen for admin cross-tab localStorage update approval!
+  localStorage.removeItem(`approve-${orderId}`);
+  
+  const checkApproval = setInterval(() => {
+    if (localStorage.getItem(`approve-${orderId}`) === "true") {
+      isApproved = true;
+      localStorage.removeItem(`approve-${orderId}`);
+    }
+  }, 500);
   
   trackerInterval = setInterval(() => {
     timeElapsed += 1;
     
-    if (timeElapsed === 8) {
+    // Auto-approve after 15 seconds if not approved by cross-tab yet (to maintain fluid user simulation)
+    if (timeElapsed >= 15) {
+      isApproved = true;
+    }
+    
+    if (isApproved && stepReceived.classList.contains("active") && !stepPreparing.classList.contains("active")) {
+      stepReceived.classList.add("complete");
       stepPreparing.classList.add("active");
       trackerProgressFill.style.width = "33%";
       const prepTime = new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: false });
       timePreparing.textContent = prepTime;
-      trackerStatusText.textContent = "Your order is being packaged securely in our kitchen.";
-      whatsappMessagePreview.textContent = `"Hi ${name}, your order ${orderId} is being packaged at our GTB Nagar location."`;
+      trackerStatusText.innerHTML = `<strong>Payment Approved!</strong> Preparing your pickles and packaging them in our Sion West kitchen.`;
+      courierName.textContent = "Kitchen Packaging...";
+      
+      const stepText2 = document.querySelector("#step-preparing p");
+      if (stepText2) stepText2.innerHTML = `<strong>Preparing Jar</strong><br><small id="time-preparing">${prepTime}</small>`;
+      
+      // Update whatsapp preview
+      whatsappMessagePreview.textContent = `"Hi ${name}, your order ${orderId} has been verified and is now entering packaging phase."`;
     }
     
-    if (timeElapsed === 20) {
+    if (timeElapsed === 28) {
       stepPreparing.classList.add("complete");
       stepDispatched.classList.add("active");
       trackerProgressFill.style.width = "66%";
@@ -758,38 +1045,53 @@ function launchLiveTracker(orderId, name, phone, address, items, carrier) {
       timeDispatched.textContent = dispatchTime;
       
       courierName.textContent = carrier.riderName;
-      trackerStatusText.textContent = `Dispatched via ${carrier.brand}. Rider ${carrier.riderName} is carrying your items.`;
+      trackerStatusText.innerHTML = `Dispatched via <strong>${carrier.brand}</strong>. Rider ${carrier.riderName} (${carrier.riderPhone}) is on the way.`;
+      
+      const stepText3 = document.querySelector("#step-dispatched p");
+      if (stepText3) stepText3.innerHTML = `<strong>Dispatched</strong><br><small id="time-dispatched">${dispatchTime}</small>`;
+      
       trackingLinkBtn.style.opacity = "1";
       trackingLinkBtn.style.pointerEvents = "auto";
       trackingLinkBtn.href = `https://borzodelivery.com/in/track/${Math.floor(Math.random() * 9000000 + 1000000)}`;
       
-      whatsappMessagePreview.textContent = `"Hi ${name}, your order ${orderId} has been dispatched! Track your rider here: ${trackingLinkBtn.href}"`;
+      whatsappMessagePreview.textContent = `"Hi ${name}, your order ${orderId} has been dispatched! Track here: ${trackingLinkBtn.href}"`;
     }
     
-    if (timeElapsed === 35) {
+    if (timeElapsed === 42) {
       stepDispatched.classList.add("complete");
       stepDelivered.classList.add("active");
       stepDelivered.classList.add("complete");
       trackerProgressFill.style.width = "100%";
       const delTime = new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: false });
       timeDelivered.textContent = delTime;
-      trackerStatusText.textContent = "Delivered! Thank you for ordering from Om Coldrink House, Sion Koliwada.";
-      whatsappMessagePreview.textContent = `"Hi ${name}, your order ${orderId} has been delivered successfully. Enjoy your authentic Punjabi treat!"`;
+      trackerStatusText.innerHTML = `<strong>Delivered!</strong> Your order has been delivered. Thank you for choosing Om Coldrink House!`;
+      
+      const stepText4 = document.querySelector("#step-delivered p");
+      if (stepText4) stepText4.innerHTML = `<strong>Delivered</strong><br><small id="time-delivered">${delTime}</small>`;
+      
+      whatsappMessagePreview.textContent = `"Hi ${name}, your order ${orderId} has been delivered successfully. Enjoy your Punjabi treat!"`;
       
       clearInterval(trackerInterval);
+      clearInterval(checkApproval);
     }
   }, 1000);
 }
 
 function resetTrackerTimeline() {
-  stepReceived.className = "step active complete";
+  stepReceived.className = "step active";
   stepPreparing.className = "step";
   stepDispatched.className = "step";
   stepDelivered.className = "step";
   trackerProgressFill.style.width = "0%";
-  timePreparing.textContent = "--:--";
-  timeDispatched.textContent = "--:--";
-  timeDelivered.textContent = "--:--";
+  
+  const stepText1 = document.querySelector("#step-received p");
+  if (stepText1) stepText1.innerHTML = `<strong>Placed</strong><br><small id="time-received">--:--</small>`;
+  const stepText2 = document.querySelector("#step-preparing p");
+  if (stepText2) stepText2.innerHTML = `<strong>Preparing</strong><br><small id="time-preparing">--:--</small>`;
+  const stepText3 = document.querySelector("#step-dispatched p");
+  if (stepText3) stepText3.innerHTML = `<strong>Dispatched</strong><br><small id="time-dispatched">--:--</small>`;
+  const stepText4 = document.querySelector("#step-delivered p");
+  if (stepText4) stepText4.innerHTML = `<strong>Delivered</strong><br><small id="time-delivered">--:--</small>`;
 }
 
 function closeTrackerModal() {
@@ -968,5 +1270,17 @@ document.addEventListener("DOMContentLoaded", () => {
   if (closeMapPicker) closeMapPicker.addEventListener("click", closeMapPickerModal);
   if (btnCancelMapPicker) btnCancelMapPicker.addEventListener("click", closeMapPickerModal);
   if (btnConfirmMapPicker) btnConfirmMapPicker.addEventListener("click", confirmMapSelection);
-  if (deliveryAddressInput) deliveryAddressInput.addEventListener("click", openMapPicker);
+  
+  // Set up date selections
+  populateDeliveryDates();
+  
+  // Initialize Google Autocomplete on fields
+  initGoogleAutocompletes();
+  
+  // Recalculate if user changes manual address input text manually
+  if (deliveryAddressInput) {
+    deliveryAddressInput.addEventListener("change", () => {
+      calculateRealOrMockRates();
+    });
+  }
 });
