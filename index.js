@@ -608,10 +608,9 @@ async function calculateRealOrMockRates() {
       points[1].longitude = parseFloat(lngVal);
     }
     
-    const response = await fetch("https://robotapitest-in.borzodelivery.com/api/business/1.8/calculate-order", {
+    const response = await fetch("/api/calculate-order", {
       method: "POST",
       headers: {
-        "X-DV-Auth-Token": BORZO_SANDBOX_TOKEN,
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
