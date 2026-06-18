@@ -9,7 +9,7 @@ const products = [
     name: "Traditional Punjabi Matthri",
     description: "Flaky, savory wheat crackers spiced with carom seeds (ajwain) and cracked black pepper. A legacy tea-time companion.",
     category: "snacks",
-    image: "assets/punjabi_toast_khari.png",
+    image: "assets/punjabi_matthri.png",
     badgeText: "Best Seller",
     pricing: {
       "200g": 120.00,
@@ -21,7 +21,7 @@ const products = [
     name: "Sweet Gudd Paare",
     description: "Crispy, hand-rolled wheat bites coated in pure melted organic jaggery (gudd) and a hint of aromatic fennel seeds.",
     category: "snacks",
-    image: "https://images.unsplash.com/photo-1601050690597-df056fb4ce78?auto=format&fit=crop&q=80&w=600",
+    image: "assets/gudd_paare.png",
     badgeText: "Traditional",
     pricing: {
       "200g": 140.00,
@@ -33,7 +33,7 @@ const products = [
     name: "Classic Shakkar Paare",
     description: "Delicate, crispy diamond-shaped bites glazed in a light, crunchy sugar syrup. Cured to melt in your mouth.",
     category: "snacks",
-    image: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&q=80&w=600",
+    image: "assets/shakkar_paare.png",
     badgeText: "Homemade",
     pricing: {
       "200g": 130.00,
@@ -45,7 +45,7 @@ const products = [
     name: "Kathal (Jackfruit) Achar",
     description: "Exotic, raw jackfruit chunks marinated in cold-pressed mustard oil, split mustard seeds, and vintage Punjabi spices.",
     category: "achar",
-    image: "assets/ommade_masala.png",
+    image: "assets/jackfruit_achar.png",
     badgeText: "Rare Specialty",
     pricing: {
       "200g": 160.00,
@@ -57,7 +57,7 @@ const products = [
     name: "Karela (Bitter Gourd) Achar",
     description: "Slices of premium bitter gourd balanced with dry mango powder (amchur), fennel, and fenugreek seeds. Digestion helper.",
     category: "achar",
-    image: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?auto=format&fit=crop&q=80&w=600",
+    image: "assets/karela_achar.png",
     badgeText: "Gourmet",
     pricing: {
       "200g": 150.00,
@@ -69,7 +69,7 @@ const products = [
     name: "Traditional Aam (Mango) Achar",
     description: "Sun-cured raw sour mangoes loaded with hot Kashmiri red chillies, fennel, and high-purity mustard oil.",
     category: "achar",
-    image: "assets/masala_soda.png",
+    image: "assets/mango_achar.png",
     badgeText: "Classic",
     pricing: {
       "200g": 140.00,
@@ -81,7 +81,7 @@ const products = [
     name: "Wild Karvanda (Carandas) Achar",
     description: "Tart, sour wild berries spiced with green chillies, mustard seeds, and naturally fermented under solar warmth.",
     category: "achar",
-    image: "https://images.unsplash.com/photo-1601050690597-df056fb4ce78?auto=format&fit=crop&q=80&w=600",
+    image: "assets/karvanda_achar.png",
     badgeText: "Sour & Spicy",
     pricing: {
       "200g": 160.00,
