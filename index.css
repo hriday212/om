@@ -1798,8 +1798,29 @@ p {
     font-size: 2.6rem;
   }
   
+  .header-container {
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: space-between;
+  }
+  .brand-logo {
+    order: 1;
+  }
+  .cart-trigger,
+  .header-container a.btn {
+    order: 2;
+  }
   .nav-links {
-    display: none;
+    order: 3;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    border-top: 1px solid var(--color-border);
+    padding-top: 10px;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
   }
   
   .filter-tabs {
