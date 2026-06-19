@@ -899,8 +899,8 @@ function handleOrderPlacement() {
     return;
   }
   
-  if (!utr || !/^\d{12}$/.test(utr)) {
-    alert("Please enter a valid 12-digit UPI Transaction UTR number.");
+  if (!utr || !/^[a-zA-Z0-9]{4,20}$/.test(utr)) {
+    alert("Please enter a valid UPI Transaction Ref / UTR number (at least 4 characters).");
     return;
   }
   
