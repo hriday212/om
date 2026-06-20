@@ -91,7 +91,7 @@ const products = [
 ];
 
 // 2. State Management
-let cart = [];
+let cart = JSON.parse(localStorage.getItem("om_cart")) || [];
 let selectedDeliveryPartner = null;
 let deliveryCharge = 0;
 let trackerInterval = null;
@@ -173,8 +173,8 @@ function renderCatalog(filter = "all") {
         <span class="product-badge badge-${product.category}">${product.badgeText}</span>
       </div>
       <div class="product-content">
-        <h3 class="product-name">${product.name}</h3>
-        <p class="product-desc">${product.description}</p>
+        <h3 class="product-name"><a href="product.html?id=${product.id}" class="product-title-link" style="color: inherit; text-decoration: none;" title="View detailed description & ingredients">${product.name}</a></h3>
+        <p class="product-desc">${product.description} <a href="product.html?id=${product.id}" style="font-size: 0.8rem; color: var(--color-brand-primary); text-decoration: underline; white-space: nowrap; margin-left: 5px;">View details →</a></p>
         
         <!-- Size Selector -->
         <div class="packaging-selector-wrapper">
@@ -296,6 +296,7 @@ function changeQuantity(cartItemId, delta) {
 }
 
 function updateCartUI() {
+  localStorage.setItem("om_cart", JSON.stringify(cart));
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   cartBadge.textContent = totalItems;
   
@@ -1200,6 +1201,86 @@ function closePolicyModal() {
   }, 300);
 }
 
+function initSpiceExplorer() {
+  const mortarBox = document.getElementById("mortar-pestle-box");
+  const infoTitle = document.getElementById("spice-info-title");
+  const infoDesc = document.getElementById("spice-info-desc");
+  const matchingProductsContainer = document.getElementById("spice-matching-products");
+  const spiceNodes = document.querySelectorAll(".spice-node");
+
+  if (!mortarBox || !infoTitle || !infoDesc || !matchingProductsContainer) return;
+
+  const secretIngredients = {
+    "1": {
+      title: "Secret Component #1",
+      desc: "This hand-roasted and milled component brings earthy, smoky warmth to the mix. It aids digestion and forms the flavor base of our tea-time dry snacks.",
+      products: ["punjabi-matthri", "gudd-paare", "shakkar-paare"]
+    },
+    "2": {
+      title: "Secret Component #2",
+      desc: "Provides a savory, sharp, and slightly tangy mineral kick that is vital to the traditional 'chatpatta' flavor of Sion Koliwada's authentic snacks.",
+      products: ["punjabi-matthri", "shakkar-paare"]
+    },
+    "3": {
+      title: "Secret Component #3",
+      desc: "The essential curing crystal that regulates natural fermentation under direct sunlight. It keeps the pickles firm, crisp, and fresh.",
+      products: ["achar-mango", "achar-jackfruit", "achar-bittergourd", "achar-karvanda"]
+    },
+    "4": {
+      title: "Secret Component #4",
+      desc: "Provides a signature sharp, pungent, and warm base that releases rich preservative enzymes when blended with mustard oil.",
+      products: ["achar-mango", "achar-jackfruit", "achar-bittergourd", "achar-karvanda"]
+    },
+    "5": {
+      title: "Secret Component #5",
+      desc: "Gives a vibrant red color and a moderate, warm heat to the recipe without overwhelming the natural flavors of the main ingredients.",
+      products: ["achar-mango", "achar-jackfruit", "achar-karvanda"]
+    },
+    "6": {
+      title: "Secret Component #6",
+      desc: "Infuses a sweet, aromatic, and cooling licorice-like aroma that perfectly balances high heat and vinegar-like pickling sourness.",
+      products: ["gudd-paare", "achar-jackfruit", "achar-bittergourd"]
+    }
+  };
+
+  spiceNodes.forEach(node => {
+    node.addEventListener("click", () => {
+      const spiceId = node.getAttribute("data-spice");
+      const data = secretIngredients[spiceId];
+
+      if (!data) return;
+
+      // Toggle active classes on nodes
+      spiceNodes.forEach(n => n.classList.remove("active"));
+      node.classList.add("active");
+
+      // Mortar grind micro-animation
+      mortarBox.classList.add("pulse");
+      setTimeout(() => mortarBox.classList.remove("pulse"), 400);
+
+      // Update panel info
+      infoTitle.textContent = data.title;
+      infoDesc.textContent = data.desc;
+
+      // Update matching products list
+      matchingProductsContainer.innerHTML = "";
+      data.products.forEach(prodId => {
+        const prod = products.find(p => p.id === prodId);
+        if (prod) {
+          const prodTag = document.createElement("a");
+          prodTag.href = `product.html?id=${prod.id}`;
+          prodTag.className = "spice-product-tag";
+          prodTag.innerHTML = `
+            <span>${prod.name}</span>
+            <i class="fa-solid fa-chevron-right"></i>
+          `;
+          matchingProductsContainer.appendChild(prodTag);
+        }
+      });
+    });
+  });
+}
+
 // ==========================================================================
 // Initialization & Bindings
 // ==========================================================================
@@ -1208,6 +1289,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderCatalog();
   updateCartUI();
   initFaqs();
+  initSpiceExplorer();
   
   // Filter Click Listeners
   document.querySelectorAll(".filter-btn").forEach(button => {
