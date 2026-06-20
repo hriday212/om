@@ -2193,34 +2193,43 @@ p {
 .bottle-rim {
   width: 32px;
   height: 12px;
-  background: linear-gradient(90deg, #6c8a7b, #455a4f); /* Teal glass */
-  border-radius: 6px;
+  background: linear-gradient(90deg, #445c50, #25332c); /* Dark vintage glass */
+  border-radius: 8px;
   border-bottom: 2px solid rgba(255, 255, 255, 0.2);
   box-shadow: inset 0 2px 3px rgba(255,255,255,0.4);
 }
 
 .bottle-neck-top {
-  width: 24px;
-  height: 60px;
-  background: linear-gradient(90deg, #4d6659, #314239); /* Dark green glass */
-  border-left: 2px solid rgba(255, 255, 255, 0.1);
-  border-right: 2px solid rgba(0,0,0,0.3);
+  width: 26px;
+  height: 55px;
+  background: linear-gradient(90deg, #314239, #1c2621);
+  border-left: 2px solid rgba(255, 255, 255, 0.15);
+  border-right: 2px solid rgba(0,0,0,0.4);
+  border-radius: 4px 4px 15px 15px; /* Curvier neck base */
   box-shadow: inset 3px 0 5px rgba(255,255,255,0.15);
 }
 
 .bottle-shoulder {
-  width: 76px;
-  height: 90px;
-  background: linear-gradient(90deg, #4d6659, #314239);
-  border-radius: 38px 38px 0 0;
-  border-left: 2.5px solid rgba(255, 255, 255, 0.12);
-  border-right: 2.5px solid rgba(0,0,0,0.35);
+  width: 86px;
+  height: 110px;
+  background: 
+    repeating-linear-gradient(90deg, 
+      rgba(255,255,255,0) 0px, 
+      rgba(255,255,255,0) 8px, 
+      rgba(255,255,255,0.15) 9px, 
+      rgba(0,0,0,0.3) 10px, 
+      rgba(255,255,255,0) 12px
+    ),
+    linear-gradient(90deg, #314239, #1c2621); /* Ribbed glass texture */
+  border-radius: 40px 40px 10px 10px; /* Iconic curvy shape */
+  border-left: 3px solid rgba(255, 255, 255, 0.15);
+  border-right: 3px solid rgba(0,0,0,0.5);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
-  box-shadow: inset 5px 5px 12px rgba(255,255,255,0.15);
+  box-shadow: inset 6px 6px 15px rgba(255,255,255,0.1);
 }
 
 .bottle-liquid {
@@ -2228,42 +2237,43 @@ p {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 80%;
-  background: linear-gradient(90deg, #8b4513, #5c2c0e); /* Amber Cola/Sarsaparilla liquid */
-  opacity: 0.85;
+  height: 90%;
+  background: linear-gradient(90deg, #2b1104, #120601); /* Dark Cola liquid */
+  opacity: 0.95;
 }
 
 .bottle-label {
   position: absolute;
-  top: 30%;
+  top: 35%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: var(--color-brand-primary);
-  color: var(--color-bg-primary);
-  padding: 2px 8px;
+  background-color: transparent;
+  color: #fff;
+  padding: 0;
   font-family: var(--font-display);
-  font-size: 1.1rem;
-  font-weight: 700;
-  border-radius: 3px;
-  box-shadow: var(--shadow-sm);
+  font-size: 1.4rem;
+  font-weight: 800;
+  border-radius: 0;
+  box-shadow: none;
   z-index: 2;
-  border: 1px solid rgba(255,255,255,0.25);
-  letter-spacing: 1px;
+  border: none;
+  letter-spacing: 2px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.8), -1px -1px 0 rgba(255,255,255,0.3); /* Embossed glass look */
 }
 
 /* Bottle Crown Cap */
 .bottle-cap {
   position: absolute;
-  top: 110px; /* Aligned right above bottle-neck-top + bottle-rim */
+  top: 115px; /* Aligned right above bottle-neck-top + bottle-rim */
   left: 50%;
   transform: translateX(-50%);
   width: 36px;
   height: 14px;
-  background: linear-gradient(135deg, #e5c158, #b8860b); /* Gold brass */
-  border-radius: 4px 4px 0 0;
-  border: 1px solid rgba(255,255,255,0.2);
+  background: linear-gradient(135deg, #d32f2f, #9a0007); /* Classic Red Cap */
+  border-radius: 5px 5px 0 0;
+  border: 1px solid rgba(0,0,0,0.3);
   z-index: 5;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+  box-shadow: inset 0 2px 2px rgba(255,255,255,0.3), 0 2px 4px rgba(0,0,0,0.25);
   display: flex;
   justify-content: space-around;
   padding: 0 2px;
@@ -2274,7 +2284,7 @@ p {
 .cap-ridge {
   width: 3px;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.15);
+  background-color: rgba(255, 255, 255, 0.2);
   border-radius: 1px;
 }
 
@@ -2283,43 +2293,47 @@ p {
   position: absolute;
   top: 30px;
   left: 50%;
-  width: 80px;
-  height: 24px;
-  background: linear-gradient(180deg, #b0b0b0, #7a7a7a); /* Steel finish */
-  border: 1px solid #666;
-  border-radius: 4px;
-  transform-origin: 70px 18px; /* Latch point alignment */
+  width: 90px;
+  height: 26px;
+  background: linear-gradient(180deg, #e6e6e6, #a0a0a0); /* Shiny Steel finish */
+  border: 1px solid #777;
+  border-radius: 13px; /* Pill-shape handle */
+  transform-origin: 75px 18px; /* Latch point alignment */
   z-index: 6;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  box-shadow: 0 5px 10px rgba(0,0,0,0.3), inset 0 2px 2px rgba(255,255,255,0.8);
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding-left: 6px;
+  padding-left: 8px;
 }
 
 .opener-handle {
-  width: 45px;
-  height: 14px;
-  background: linear-gradient(180deg, #d3d3d3, #a9a9a9);
-  border-radius: 3px;
-  border: 1px solid rgba(0,0,0,0.1);
+  width: 40px;
+  height: 12px;
+  background: linear-gradient(180deg, #c0c0c0, #808080);
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,0.3);
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.4);
 }
 
 .opener-head {
-  width: 24px;
-  height: 22px;
-  border-radius: 4px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%; /* Classic circular metal loop */
   background-color: transparent;
-  border: 4.5px solid #888; /* Metal loop */
+  border: 5px solid #a0a0a0; /* Metal loop */
   margin-left: auto;
-  margin-right: 2px;
+  margin-right: -2px;
   position: relative;
+  box-shadow: 0 3px 5px rgba(0,0,0,0.3), inset 0 2px 4px rgba(255,255,255,0.6);
 }
 
 .opener-hole {
   width: 100%;
   height: 100%;
+  border-radius: 50%;
   background-color: transparent;
+  box-shadow: inset 0 3px 5px rgba(0,0,0,0.5);
 }
 
 /* Gas Bubble Fizz Spray */
