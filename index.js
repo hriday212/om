@@ -7,7 +7,7 @@ const products = [
   {
     id: "punjabi-matthri",
     name: "Traditional Punjabi Matthri",
-    description: "Crispy, flaky mathri spiced with ajwain (carom seeds) and black pepper. Perfect with hot tea or mango pickle.",
+    description: "Crispy, flaky mathri spiced with our signature secret blend. Perfect with hot tea or mango pickle.",
     category: "snacks",
     image: "assets/punjabi_matthri.png",
     badgeText: "Best Seller",
@@ -19,7 +19,7 @@ const products = [
   {
     id: "gudd-paare",
     name: "Sweet Gudd Paare",
-    description: "Wheat treats sweetened with jaggery (gudd) and fennel seeds.",
+    description: "Wheat treats sweetened with jaggery (gudd) and our proprietary secret blend.",
     category: "snacks",
     image: "assets/gudd_paare.png",
     badgeText: "Traditional",
@@ -43,7 +43,7 @@ const products = [
   {
     id: "achar-jackfruit",
     name: "Kathal (Jackfruit) Achar",
-    description: "Tender jackfruit pieces marinated in pure mustard oil, fennel, and nigella seeds.",
+    description: "Tender jackfruit pieces marinated in pure mustard oil and our proprietary secret blend.",
     category: "achar",
     image: "assets/jackfruit_achar.png",
     badgeText: "Specialty",
@@ -55,7 +55,7 @@ const products = [
   {
     id: "achar-bittergourd",
     name: "Karela (Bitter Gourd) Achar",
-    description: "Bitter gourd slices seasoned with dry mango powder (amchur), fennel, and mustard oil.",
+    description: "Bitter gourd slices seasoned with dry mango powder (amchur), mustard oil, and our proprietary secret blend.",
     category: "achar",
     image: "assets/karela_achar.png",
     badgeText: "Gourmet",
@@ -67,7 +67,7 @@ const products = [
   {
     id: "achar-mango",
     name: "Traditional Aam (Mango) Achar",
-    description: "Classic raw mango pickle marinated in mustard oil, red chillies, and traditional spices.",
+    description: "Classic raw mango pickle marinated in mustard oil and our proprietary secret blend.",
     category: "achar",
     image: "assets/mango_achar.png",
     badgeText: "Classic",
@@ -79,7 +79,7 @@ const products = [
   {
     id: "achar-karvanda",
     name: "Wild Karvanda (Carandas) Achar",
-    description: "Tangy wild karvanda berries pickled with green chillies and mustard seeds.",
+    description: "Tangy wild karvanda berries pickled with green chillies and our signature secret blend.",
     category: "achar",
     image: "assets/karvanda_achar.png",
     badgeText: "Sour & Spicy",
@@ -1201,84 +1201,96 @@ function closePolicyModal() {
   }, 300);
 }
 
-function initSpiceExplorer() {
-  const mortarBox = document.getElementById("mortar-pestle-box");
-  const infoTitle = document.getElementById("spice-info-title");
-  const infoDesc = document.getElementById("spice-info-desc");
-  const matchingProductsContainer = document.getElementById("spice-matching-products");
-  const spiceNodes = document.querySelectorAll(".spice-node");
+function initBottleOpenerScroll() {
+  const widget = document.getElementById("bottle-opener-widget");
+  const opener = document.getElementById("widget-opener");
+  const cap = document.getElementById("widget-cap");
+  const fizz = document.getElementById("widget-fizz");
+  const scene = document.getElementById("bottle-scene");
+  const statusTitle = document.getElementById("bottle-status-title");
+  const statusDesc = document.getElementById("bottle-status-desc");
 
-  if (!mortarBox || !infoTitle || !infoDesc || !matchingProductsContainer) return;
+  if (!widget || !opener || !cap || !fizz || !scene || !statusTitle || !statusDesc) return;
 
-  const secretIngredients = {
-    "1": {
-      title: "Secret Component #1",
-      desc: "This hand-roasted and milled component brings earthy, smoky warmth to the mix. It aids digestion and forms the flavor base of our tea-time dry snacks.",
-      products: ["punjabi-matthri", "gudd-paare", "shakkar-paare"]
-    },
-    "2": {
-      title: "Secret Component #2",
-      desc: "Provides a savory, sharp, and slightly tangy mineral kick that is vital to the traditional 'chatpatta' flavor of Sion Koliwada's authentic snacks.",
-      products: ["punjabi-matthri", "shakkar-paare"]
-    },
-    "3": {
-      title: "Secret Component #3",
-      desc: "The essential curing crystal that regulates natural fermentation under direct sunlight. It keeps the pickles firm, crisp, and fresh.",
-      products: ["achar-mango", "achar-jackfruit", "achar-bittergourd", "achar-karvanda"]
-    },
-    "4": {
-      title: "Secret Component #4",
-      desc: "Provides a signature sharp, pungent, and warm base that releases rich preservative enzymes when blended with mustard oil.",
-      products: ["achar-mango", "achar-jackfruit", "achar-bittergourd", "achar-karvanda"]
-    },
-    "5": {
-      title: "Secret Component #5",
-      desc: "Gives a vibrant red color and a moderate, warm heat to the recipe without overwhelming the natural flavors of the main ingredients.",
-      products: ["achar-mango", "achar-jackfruit", "achar-karvanda"]
-    },
-    "6": {
-      title: "Secret Component #6",
-      desc: "Infuses a sweet, aromatic, and cooling licorice-like aroma that perfectly balances high heat and vinegar-like pickling sourness.",
-      products: ["gudd-paare", "achar-jackfruit", "achar-bittergourd"]
-    }
-  };
+  let popped = false;
 
-  spiceNodes.forEach(node => {
-    node.addEventListener("click", () => {
-      const spiceId = node.getAttribute("data-spice");
-      const data = secretIngredients[spiceId];
+  function handleScroll() {
+    const rect = widget.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+    
+    // We calculate progress relative to the screen. 
+    // It starts when the top of the card is visible at the bottom of the viewport
+    // and completes when the center of the card is at the center of the viewport.
+    const startY = viewportHeight;
+    const endY = viewportHeight * 0.35;
+    
+    const currentY = rect.top;
+    
+    let progress = (startY - currentY) / (startY - endY);
+    progress = Math.max(0, Math.min(1, progress));
 
-      if (!data) return;
-
-      // Toggle active classes on nodes
-      spiceNodes.forEach(n => n.classList.remove("active"));
-      node.classList.add("active");
-
-      // Mortar grind micro-animation
-      mortarBox.classList.add("pulse");
-      setTimeout(() => mortarBox.classList.remove("pulse"), 400);
-
-      // Update panel info
-      infoTitle.textContent = data.title;
-      infoDesc.textContent = data.desc;
-
-      // Update matching products list
-      matchingProductsContainer.innerHTML = "";
-      data.products.forEach(prodId => {
-        const prod = products.find(p => p.id === prodId);
-        if (prod) {
-          const prodTag = document.createElement("a");
-          prodTag.href = `product.html?id=${prod.id}`;
-          prodTag.className = "spice-product-tag";
-          prodTag.innerHTML = `
-            <span>${prod.name}</span>
-            <i class="fa-solid fa-chevron-right"></i>
-          `;
-          matchingProductsContainer.appendChild(prodTag);
+    if (progress < 0.6) {
+      // Step 1: Opener descends onto the cap
+      // Descend: top moves from 30px to 108px
+      const currentTop = 30 + (progress / 0.6) * 78;
+      opener.style.top = `${currentTop}px`;
+      
+      // Rotate opener slightly: from -30deg to -5deg
+      const currentRot = -30 + (progress / 0.6) * 25;
+      opener.style.transform = `translateX(-50%) rotate(${currentRot}deg)`;
+      
+      // Reset cap & fizz
+      cap.style.top = "110px";
+      cap.style.transform = "translateX(-50%) rotate(0deg)";
+      cap.style.opacity = "1";
+      fizz.style.display = "none";
+      scene.classList.remove("opened-sparkle");
+      
+      statusTitle.textContent = "Coldrink Bottle Sealed";
+      statusDesc.textContent = "Scroll down to align the opener and pop open our legacy!";
+      popped = false;
+    } else {
+      // Step 2: Opener prys cap open (progress 0.6 to 1.0)
+      const pryProgress = (progress - 0.6) / 0.4; // 0 to 1
+      
+      // Opener rotates upwards: from -5deg to 35deg
+      const currentRot = -5 + (pryProgress * 40);
+      opener.style.transform = `translateX(-50%) rotate(${currentRot}deg)`;
+      opener.style.top = `${108 - (pryProgress * 15)}px`;
+      
+      if (pryProgress < 0.3) {
+        // Cap starts prying
+        cap.style.top = `${110 - (pryProgress * 10)}px`;
+        cap.style.transform = `translateX(-50%) rotate(${-pryProgress * 20}deg)`;
+        cap.style.opacity = "1";
+        fizz.style.display = "none";
+        scene.classList.remove("opened-sparkle");
+        statusTitle.textContent = "Unlocking Heritage...";
+        statusDesc.textContent = "Just a little more scroll to pop the cap!";
+      } else {
+        // Cap pops off completely
+        const flyProgress = (pryProgress - 0.3) / 0.7; // 0 to 1
+        
+        cap.style.top = `${107 - (flyProgress * 140)}px`;
+        cap.style.transform = `translateX(calc(-50% + ${flyProgress * 160}px)) rotate(${flyProgress * 360}deg)`;
+        cap.style.opacity = `${1 - flyProgress}`;
+        
+        fizz.style.display = "flex";
+        scene.classList.add("opened-sparkle");
+        
+        statusTitle.textContent = "POP! Opened Since 1968";
+        statusDesc.textContent = "The legacy established by Late Shri Swaranlal Julka and the family is preserved fresh daily. Savor Sion Koliwada's authentic tastes!";
+        
+        if (!popped) {
+          popped = true;
         }
-      });
-    });
-  });
+      }
+    }
+  }
+
+  window.addEventListener("scroll", handleScroll);
+  window.addEventListener("resize", handleScroll);
+  handleScroll(); // Trigger initial state
 }
 
 // ==========================================================================
@@ -1289,7 +1301,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderCatalog();
   updateCartUI();
   initFaqs();
-  initSpiceExplorer();
+  initBottleOpenerScroll();
   
   // Filter Click Listeners
   document.querySelectorAll(".filter-btn").forEach(button => {

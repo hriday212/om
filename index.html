@@ -116,7 +116,7 @@
           "@type": "Product",
           "name": "Traditional Punjabi Matthri",
           "image": "https://omcoldrinkhouse.com/assets/punjabi_matthri.png",
-          "description": "Flaky, savory wheat crackers spiced with carom seeds (ajwain) and cracked black pepper.",
+          "description": "Flaky, savory wheat crackers spiced with our signature secret blend.",
           "offers": {
             "@type": "AggregateOffer",
             "priceCurrency": "INR",
@@ -134,7 +134,7 @@
           "@type": "Product",
           "name": "Sweet Gudd Paare",
           "image": "https://omcoldrinkhouse.com/assets/gudd_paare.png",
-          "description": "Crispy, hand-rolled wheat bites coated in pure melted organic jaggery (gudd) and a hint of aromatic fennel seeds.",
+          "description": "Crispy, hand-rolled wheat bites coated in pure melted organic jaggery (gudd) and a hint of our proprietary secret blend.",
           "offers": {
             "@type": "AggregateOffer",
             "priceCurrency": "INR",
@@ -170,7 +170,7 @@
           "@type": "Product",
           "name": "Kathal (Jackfruit) Achar",
           "image": "https://omcoldrinkhouse.com/assets/jackfruit_achar.png",
-          "description": "Exotic, raw jackfruit chunks marinated in cold-pressed mustard oil, split mustard seeds, and vintage Punjabi spices.",
+          "description": "Exotic, raw jackfruit chunks marinated in cold-pressed mustard oil and our signature secret blend.",
           "offers": {
             "@type": "AggregateOffer",
             "priceCurrency": "INR",
@@ -188,7 +188,7 @@
           "@type": "Product",
           "name": "Karela (Bitter Gourd) Achar",
           "image": "https://omcoldrinkhouse.com/assets/karela_achar.png",
-          "description": "Slices of premium bitter gourd balanced with dry mango powder (amchur), fennel, and fenugreek seeds.",
+          "description": "Slices of premium bitter gourd balanced with dry mango powder (amchur) and our proprietary secret blend.",
           "offers": {
             "@type": "AggregateOffer",
             "priceCurrency": "INR",
@@ -206,7 +206,7 @@
           "@type": "Product",
           "name": "Traditional Aam (Mango) Achar",
           "image": "https://omcoldrinkhouse.com/assets/mango_achar.png",
-          "description": "Sun-cured raw sour mangoes loaded with hot Kashmiri red chillies, fennel, and high-purity mustard oil.",
+          "description": "Sun-cured raw sour mangoes loaded with our signature secret blend and high-purity mustard oil.",
           "offers": {
             "@type": "AggregateOffer",
             "priceCurrency": "INR",
@@ -224,7 +224,7 @@
           "@type": "Product",
           "name": "Wild Karvanda (Carandas) Achar",
           "image": "https://omcoldrinkhouse.com/assets/karvanda_achar.png",
-          "description": "Tart, sour wild berries spiced with green chillies, mustard seeds, and naturally fermented under solar warmth.",
+          "description": "Tart, sour wild berries spiced with green chillies, our signature secret blend, and naturally fermented under solar warmth.",
           "offers": {
             "@type": "AggregateOffer",
             "priceCurrency": "INR",
@@ -312,26 +312,49 @@
         <div class="heritage-photo-wrapper" style="overflow: visible;">
           <div class="heritage-accent-badge">Sion Koliwada's Pride</div>
           
-          <!-- Interactive Spice Explorer -->
-          <div class="spice-explorer-container">
-            <div class="mortar-pestle-box" id="mortar-pestle-box">
-              <i class="fa-solid fa-mortar-pestle mortar-pestle-icon"></i>
-              <div class="mortar-instruction">Tap a component below to grind</div>
+          <!-- Scroll-Animated Bottle Opener Widget -->
+          <div class="bottle-opener-widget" id="bottle-opener-widget">
+            <div class="bottle-scene" id="bottle-scene">
+              <!-- Opener tool -->
+              <div class="bottle-opener" id="widget-opener">
+                <div class="opener-handle"></div>
+                <div class="opener-head">
+                  <div class="opener-hole"></div>
+                </div>
+              </div>
+              
+              <!-- Crown Cap -->
+              <div class="bottle-cap" id="widget-cap">
+                <span class="cap-ridge"></span>
+                <span class="cap-ridge"></span>
+                <span class="cap-ridge"></span>
+                <span class="cap-ridge"></span>
+                <span class="cap-ridge"></span>
+              </div>
+              
+              <!-- Glass Bottle Neck & Shoulder -->
+              <div class="bottle-neck-container">
+                <div class="bottle-rim"></div>
+                <div class="bottle-neck-top"></div>
+                <div class="bottle-shoulder">
+                  <div class="bottle-label">OM</div>
+                  <div class="bottle-liquid"></div>
+                </div>
+              </div>
+              
+              <!-- Fizz bubble particles -->
+              <div class="bottle-fizz" id="widget-fizz">
+                <span class="bubble b1"></span>
+                <span class="bubble b2"></span>
+                <span class="bubble b3"></span>
+                <span class="bubble b4"></span>
+                <span class="bubble b5"></span>
+              </div>
             </div>
             
-            <div class="spices-ring">
-              <button type="button" class="spice-node" data-spice="1" aria-label="Component 1" title="Tap to inspect Component 1"><i class="fa-solid fa-seedling"></i></button>
-              <button type="button" class="spice-node" data-spice="2" aria-label="Component 2" title="Tap to inspect Component 2"><i class="fa-solid fa-cubes"></i></button>
-              <button type="button" class="spice-node" data-spice="3" aria-label="Component 3" title="Tap to inspect Component 3"><i class="fa-solid fa-cube"></i></button>
-              <button type="button" class="spice-node" data-spice="4" aria-label="Component 4" title="Tap to inspect Component 4"><i class="fa-solid fa-circle-nodes"></i></button>
-              <button type="button" class="spice-node" data-spice="5" aria-label="Component 5" title="Tap to inspect Component 5"><i class="fa-solid fa-pepper-hot"></i></button>
-              <button type="button" class="spice-node" data-spice="6" aria-label="Component 6" title="Tap to inspect Component 6"><i class="fa-solid fa-candy-cane"></i></button>
-            </div>
-            
-            <div class="spice-info-card" id="spice-info-card">
-              <h4 id="spice-info-title">Secret Masala Ratios</h4>
-              <p id="spice-info-desc">Tap any ingredient node above to reveal its culinary purpose and matching products in our store.</p>
-              <div id="spice-matching-products" class="spice-products-list"></div>
+            <div class="bottle-status-card">
+              <h4 id="bottle-status-title">Coldrink Bottle Sealed</h4>
+              <p id="bottle-status-desc">Scroll down to align the opener and pop open our legacy!</p>
             </div>
           </div>
         </div>
@@ -339,10 +362,10 @@
       <div class="heritage-text">
         <h2 class="section-title">The Sion Koliwada Legacy</h2>
         <p class="heritage-paragraph">
-          What began as a simple corner store started on a wooden table by our grandfather <strong>Swaranlal Julka</strong> in the late 1960s has grown over generations. To ease his daily burden, our uncle <strong>Rishiraj Julka</strong> and later our father <strong>Jatin Julka</strong> joined the business, establishing <strong>Om Coldrink House</strong> as a beloved local landmark in Sion Koliwada near GTB Nagar station.
+          What began as a simple corner store started on a wooden table by <strong>Late Shri Swaranlal Julka</strong> in the late 1960s has grown over generations. To ease the daily operations, <strong>Shri Rishiraj Julka</strong> and later <strong>Shri Jatin Julka</strong> joined the family business, establishing <strong>Om Coldrink House</strong> as a beloved local landmark in Sion Koliwada near GTB Nagar station.
         </p>
         <p class="heritage-paragraph">
-          Our family-run general store strictly sources and offers authentic, premium Punjabi delicacies and household essentials. Every bottle of our pickle is naturally cured under the sun in small batches with zero artificial colors or preservatives. Our traditional snacks are hand-rolled and spiced using our signature salt-and-cumin masala blends to offer genuine Punjabi taste.
+          Our family-run general store strictly sources and offers authentic, premium Punjabi delicacies and household essentials. Every bottle of our pickle is naturally cured under the sun in small batches with zero artificial colors or preservatives. Our traditional snacks are hand-rolled and spiced using our signature secret blends to offer genuine Punjabi taste.
         </p>
       </div>
     </div>
@@ -410,17 +433,17 @@
         <div class="guide-grid">
           <div class="guide-item">
             <h4><i class="fa-solid fa-plate-wheat"></i> Jackfruit (Kathal) Achar</h4>
-            <p>Made with tender jackfruit chunks marinated in mustard oil, fennel, and nigella seeds. It has a unique meaty texture and pairs perfectly with hot, buttered parathas or khichdi.</p>
+            <p>Made with tender jackfruit chunks marinated in mustard oil and our proprietary secret blend. It has a unique meaty texture and pairs perfectly with hot, buttered parathas or khichdi.</p>
           </div>
           
           <div class="guide-item">
             <h4><i class="fa-solid fa-pepper-hot"></i> Bitter Gourd (Karela) Achar</h4>
-            <p>A gourmet delicacy that balances the natural bitterness of gourd with dry mango powder (amchur), fennel seeds, and mustard. Outstanding digestion booster when served with dal-rice.</p>
+            <p>A gourmet delicacy that balances the natural bitterness of gourd with our secret blend and premium cold-pressed oil. Outstanding digestion booster when served with dal-rice.</p>
           </div>
           
           <div class="guide-item">
             <h4><i class="fa-solid fa-cookie"></i> Matthri with Mango Pickle</h4>
-            <p>A classic combinations in Punjabi households. The salty, flaky, ajwain-infused Matthri is dipped into the tangy mango pickle oil for the ultimate monsoon teatime experience.</p>
+            <p>A classic combination in Punjabi households. The salty, flaky, spiced Matthri is dipped into the tangy mango pickle oil for the ultimate monsoon teatime experience.</p>
           </div>
           
           <div class="guide-item">

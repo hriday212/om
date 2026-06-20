@@ -2153,167 +2153,263 @@ p {
 }
 
 /* ==========================================================================
-   Spice Explorer Component Styles
+   Interactive Coldrink Bottle Opener (Scroll-Activated)
    ========================================================================== */
-.spice-explorer-container {
+.bottle-opener-widget {
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding: 30px 15px 15px 15px;
+  justify-content: center;
+  padding: 30px 20px 20px 20px;
   position: relative;
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-warm);
+  overflow: hidden;
   z-index: 10;
 }
 
-.mortar-pestle-box {
+.bottle-scene {
+  position: relative;
+  width: 240px;
+  height: 280px;
+  margin-bottom: 15px;
+}
+
+/* Glass Bottle Structure */
+.bottle-neck-container {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 10px;
-  position: relative;
-  transition: var(--transition-smooth);
+  width: 100px;
 }
 
-.mortar-pestle-box.pulse {
-  animation: mortarPulse 0.4s ease;
+.bottle-rim {
+  width: 32px;
+  height: 12px;
+  background: linear-gradient(90deg, #6c8a7b, #455a4f); /* Teal glass */
+  border-radius: 6px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 2px 3px rgba(255,255,255,0.4);
 }
 
-@keyframes mortarPulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.15) rotate(-5deg); }
-  100% { transform: scale(1); }
+.bottle-neck-top {
+  width: 24px;
+  height: 60px;
+  background: linear-gradient(90deg, #4d6659, #314239); /* Dark green glass */
+  border-left: 2px solid rgba(255, 255, 255, 0.1);
+  border-right: 2px solid rgba(0,0,0,0.3);
+  box-shadow: inset 3px 0 5px rgba(255,255,255,0.15);
 }
 
-.mortar-pestle-icon {
-  font-size: 4rem;
-  color: var(--color-brand-primary);
-  margin-bottom: 6px;
-}
-
-.mortar-instruction {
-  font-size: 0.7rem;
-  color: var(--color-text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-weight: 700;
-  text-align: center;
-}
-
-.spices-ring {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin: 15px 0;
-  flex-wrap: wrap;
-  width: 100%;
-}
-
-.spice-node {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  border: 1px solid var(--color-border);
-  background-color: var(--color-bg-primary);
-  color: var(--color-text-primary);
+.bottle-shoulder {
+  width: 76px;
+  height: 90px;
+  background: linear-gradient(90deg, #4d6659, #314239);
+  border-radius: 38px 38px 0 0;
+  border-left: 2.5px solid rgba(255, 255, 255, 0.12);
+  border-right: 2.5px solid rgba(0,0,0,0.35);
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: var(--transition-smooth);
-  box-shadow: var(--shadow-sm);
-  padding: 0;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 5px 5px 12px rgba(255,255,255,0.15);
 }
 
-.spice-node:hover {
-  transform: translateY(-2px) scale(1.1);
-  border-color: var(--color-brand-primary);
+.bottle-liquid {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80%;
+  background: linear-gradient(90deg, #8b4513, #5c2c0e); /* Amber Cola/Sarsaparilla liquid */
+  opacity: 0.85;
 }
 
-.spice-node.active {
+.bottle-label {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: var(--color-brand-primary);
   color: var(--color-bg-primary);
-  border-color: var(--color-brand-primary);
-  box-shadow: 0 0 10px rgba(200, 92, 64, 0.3);
+  padding: 2px 8px;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: 3px;
+  box-shadow: var(--shadow-sm);
+  z-index: 2;
+  border: 1px solid rgba(255,255,255,0.25);
+  letter-spacing: 1px;
 }
 
-/* Spice nodes specific colors when active/hovered */
-.spice-node[data-spice="1"] { color: #d4a373; }
-.spice-node[data-spice="2"] { color: #8e9aaf; }
-.spice-node[data-spice="3"] { color: #8c9e94; }
-.spice-node[data-spice="4"] { color: #f1c232; }
-.spice-node[data-spice="5"] { color: #cc0000; }
-.spice-node[data-spice="6"] { color: #e06666; }
+/* Bottle Crown Cap */
+.bottle-cap {
+  position: absolute;
+  top: 110px; /* Aligned right above bottle-neck-top + bottle-rim */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36px;
+  height: 14px;
+  background: linear-gradient(135deg, #e5c158, #b8860b); /* Gold brass */
+  border-radius: 4px 4px 0 0;
+  border: 1px solid rgba(255,255,255,0.2);
+  z-index: 5;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+  display: flex;
+  justify-content: space-around;
+  padding: 0 2px;
+  transform-origin: center bottom;
+  transition: transform 0.05s ease-out;
+}
 
-.spice-node[data-spice="1"].active { color: white; background-color: #d4a373; }
-.spice-node[data-spice="2"].active { color: white; background-color: #8e9aaf; }
-.spice-node[data-spice="3"].active { color: #333333; background-color: #e9ecef; }
-.spice-node[data-spice="4"].active { color: #333333; background-color: #f1c232; }
-.spice-node[data-spice="5"].active { color: white; background-color: #cc0000; }
-.spice-node[data-spice="6"].active { color: white; background-color: #e06666; }
+.cap-ridge {
+  width: 3px;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 1px;
+}
 
-.spice-info-card {
+/* Metal Opener Tool */
+.bottle-opener {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  width: 80px;
+  height: 24px;
+  background: linear-gradient(180deg, #b0b0b0, #7a7a7a); /* Steel finish */
+  border: 1px solid #666;
+  border-radius: 4px;
+  transform-origin: 70px 18px; /* Latch point alignment */
+  z-index: 6;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 6px;
+}
+
+.opener-handle {
+  width: 45px;
+  height: 14px;
+  background: linear-gradient(180deg, #d3d3d3, #a9a9a9);
+  border-radius: 3px;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+.opener-head {
+  width: 24px;
+  height: 22px;
+  border-radius: 4px;
+  background-color: transparent;
+  border: 4.5px solid #888; /* Metal loop */
+  margin-left: auto;
+  margin-right: 2px;
+  position: relative;
+}
+
+.opener-hole {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+}
+
+/* Gas Bubble Fizz Spray */
+.bottle-fizz {
+  position: absolute;
+  top: 108px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 60px;
+  z-index: 4;
+  display: none;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.bubble {
+  position: absolute;
+  bottom: 0;
+  width: 6px;
+  height: 6px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.bubble.b1 { left: 5px; animation: bubbleUp 0.8s infinite ease-out; }
+.bubble.b2 { left: 12px; animation: bubbleUp 0.6s infinite ease-out 0.1s; }
+.bubble.b3 { left: 18px; animation: bubbleUp 0.9s infinite ease-out 0.2s; }
+.bubble.b4 { left: 8px; animation: bubbleUp 0.7s infinite ease-out 0.3s; }
+.bubble.b5 { left: 15px; animation: bubbleUp 0.5s infinite ease-out 0.4s; }
+
+@keyframes bubbleUp {
+  0% {
+    transform: translateY(0) scale(0.6);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-80px) scale(1.6);
+    opacity: 0;
+  }
+}
+
+/* Status Card */
+.bottle-status-card {
   width: 100%;
   background-color: rgba(253, 251, 247, 0.95);
   border: 1px dashed var(--color-border);
   border-radius: var(--radius-sm);
-  padding: 12px;
-  font-size: 0.8rem;
+  padding: 15px;
   text-align: center;
+  box-shadow: var(--shadow-inset);
   transition: var(--transition-smooth);
 }
 
-.spice-info-card h4 {
-  font-size: 0.85rem;
+.bottle-status-card h4 {
+  font-size: 1rem;
   color: var(--color-brand-primary);
-  margin-bottom: 4px;
+  margin-bottom: 6px;
   font-weight: 700;
   font-family: var(--font-sans);
 }
 
-.spice-info-card p {
+.bottle-status-card p {
   color: var(--color-text-muted);
   line-height: 1.4;
-  margin-bottom: 8px;
-  font-size: 0.78rem;
+  font-size: 0.85rem;
 }
 
-.spice-products-list {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  align-items: center;
-  margin-top: 6px;
+/* Opened Sparkle Effect Class */
+.bottle-scene.opened-sparkle::after {
+  content: '';
+  position: absolute;
+  top: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, rgba(226,158,75,0.3) 0%, rgba(255,255,255,0) 70%);
+  pointer-events: none;
+  animation: pulseSparkle 1.5s infinite alternate;
+  z-index: 1;
 }
 
-.spice-product-tag {
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  max-width: 220px;
-  background-color: var(--color-bg-secondary);
-  border: 1px solid var(--color-border);
-  padding: 4px 10px;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-decoration: none;
-  color: var(--color-text-primary);
-  transition: var(--transition-smooth);
-}
-
-.spice-product-tag:hover {
-  border-color: var(--color-brand-primary);
-  background-color: var(--color-white);
-  transform: translateX(2px);
-}
-
-.spice-product-tag i {
-  color: var(--color-brand-primary);
-  font-size: 0.7rem;
+@keyframes pulseSparkle {
+  0% { transform: translateX(-50%) scale(0.9); opacity: 0.5; }
+  100% { transform: translateX(-50%) scale(1.2); opacity: 1; }
 }
 
 /* Footer Compliance Grid */

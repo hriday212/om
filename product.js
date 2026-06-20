@@ -7,7 +7,7 @@ const products = [
   {
     id: "achar-jackfruit",
     name: "Kathal (Jackfruit) Achar",
-    description: "Tender raw jackfruit chunks marinated in premium cold-pressed mustard oil, loaded with fenugreek seeds, yellow mustard meal, fennel, and nigella seeds. A unique, meaty texture pickle that perfectly captures Sion Koliwada's signature Punjabi flavors.",
+    description: "Tender raw jackfruit chunks marinated in premium cold-pressed mustard oil and our proprietary secret blend. A unique, meaty texture pickle that perfectly captures Sion Koliwada's signature Punjabi flavors.",
     category: "sun-cured pickles",
     categoryKey: "achar",
     image: "assets/jackfruit_achar.png",
@@ -16,7 +16,7 @@ const products = [
     preservative: "Cold-pressed mustard oil",
     sourcing: "Delhi & Punjab grain markets",
     curing: "14 Days natural sunlight exposure",
-    ingredients: "Raw Jackfruit, Cold-Pressed Mustard Oil, Yellow Mustard Seeds, Fennel (Saunf), Fenugreek (Methi Dana), Nigella Seeds (Kalonji), Turmeric, Red Chilli Powder, White Salt, Cumin, Black Salt, Secret Spices.",
+    ingredients: "Raw Jackfruit, Cold-Pressed Mustard Oil, and our proprietary Secret Blend of hand-ground heritage spices.",
     pricing: {
       "200g": 160.00,
       "400g": 300.00
@@ -25,7 +25,7 @@ const products = [
   {
     id: "achar-bittergourd",
     name: "Karela (Bitter Gourd) Achar",
-    description: "Bitter gourd slices salted, dried, and seasoned with tangy dry mango powder (amchur), fennel seeds, and pure mustard oil. A delicious balance of mild bitterness, tang, and warming heat.",
+    description: "Bitter gourd slices salted, dried, and seasoned with dry mango powder (amchur), pure mustard oil, and our proprietary secret blend. A delicious balance of mild bitterness, tang, and warming heat.",
     category: "sun-cured pickles",
     categoryKey: "achar",
     image: "assets/karela_achar.png",
@@ -34,7 +34,7 @@ const products = [
     preservative: "Mustard oil & dry mango powder",
     sourcing: "Direct from Delhi vegetable markets",
     curing: "10 Days sunlight slow aging",
-    ingredients: "Bitter Gourd (Karela), Cold-Pressed Mustard Oil, Dry Mango Powder (Amchur), Fennel Seeds, Turmeric, Red Chilli, White Salt, Black Salt, Cumin, Secret Spices.",
+    ingredients: "Bitter Gourd (Karela), Cold-Pressed Mustard Oil, Dry Mango Powder (Amchur), and our proprietary Secret Blend of hand-ground heritage spices.",
     pricing: {
       "200g": 150.00,
       "400g": 280.00
@@ -52,7 +52,7 @@ const products = [
     preservative: "Mustard oil & natural salt brine",
     sourcing: "Select sour green mangoes from local markets",
     curing: "14 Days sun-matured jar aging",
-    ingredients: "Sour Green Mango, Cold-Pressed Mustard Oil, Coarse Mustard Meal, Fennel, Fenugreek, Red Chilli, Turmeric, White Salt, Cumin, Black Salt, Secret Spices.",
+    ingredients: "Sour Green Mango, Cold-Pressed Mustard Oil, Coarse Mustard Meal, and our proprietary Secret Blend of hand-ground heritage spices.",
     pricing: {
       "200g": 140.00,
       "400g": 260.00
@@ -70,7 +70,7 @@ const products = [
     preservative: "Cold-pressed mustard oil",
     sourcing: "Direct hand-picked forest harvest",
     curing: "12 Days sun-ripened",
-    ingredients: "Wild Karvanda (Carandas), Green Chillies, Cold-Pressed Mustard Oil, Coarse Mustard, Turmeric, Red Chilli, White Salt, Black Salt, Cumin, Secret Spices.",
+    ingredients: "Wild Karvanda (Carandas), Green Chillies, Cold-Pressed Mustard Oil, Coarse Mustard, and our proprietary Secret Blend of hand-ground heritage spices.",
     pricing: {
       "200g": 160.00,
       "400g": 300.00
@@ -79,7 +79,7 @@ const products = [
   {
     id: "punjabi-matthri",
     name: "Traditional Matthri",
-    description: "Flaky, crisp, hand-rolled wheat flour crackers seasoned with cracked ajwain (carom seeds) and black pepper. Sourced directly from flour millers in Punjab, these mathris are double-fried in pure oil for that signature Punjabi crunch.",
+    description: "Flaky, crisp, hand-rolled wheat flour crackers seasoned with our proprietary secret blend. Sourced directly from flour millers in Punjab, these mathris are double-fried in pure oil for that signature Punjabi crunch.",
     category: "hand-rolled savories",
     categoryKey: "drygoods",
     image: "assets/punjabi_matthri.png",
@@ -88,7 +88,7 @@ const products = [
     preservative: "None (Air-tight sealed)",
     sourcing: "Wheat flour from Punjab mills",
     curing: "Immediate packaging post-cooling",
-    ingredients: "Refined Wheat Flour (Maida), Pure Ghee/Oil, Ajwain (Carom Seeds), Black Pepper, White Salt, Black Salt, Roasted Cumin, Secret Spices.",
+    ingredients: "Refined Wheat Flour (Maida), Pure Ghee/Oil, and our proprietary Secret Blend of hand-ground heritage spices.",
     pricing: {
       "200g": 120.00,
       "400g": 220.00
@@ -97,7 +97,7 @@ const products = [
   {
     id: "gudd-paare",
     name: "Sweet Gudd Paare",
-    description: "Delightfully crunchy wheat sticks coated in organic melted jaggery (gudd) and finished with roasted fennel seeds. A guilt-free traditional dessert snack with no refined sugar.",
+    description: "Delightfully crunchy wheat sticks coated in organic melted jaggery (gudd) and finished with our proprietary secret blend. A guilt-free traditional dessert snack with no refined sugar.",
     category: "hand-rolled savories",
     categoryKey: "drygoods",
     image: "assets/gudd_paare.png",
@@ -106,7 +106,7 @@ const products = [
     preservative: "Natural jaggery coating",
     sourcing: "Organic sugarcane jaggery from Punjab",
     curing: "Immediate packaging post-cooling",
-    ingredients: "Wheat Flour (Atta), Organic Jaggery (Gudd), Pure Ghee, Fennel Seeds (Saunf), Cardamom Powder.",
+    ingredients: "Wheat Flour (Atta), Organic Jaggery (Gudd), Pure Ghee, and our proprietary Secret Blend.",
     pricing: {
       "200g": 140.00,
       "400g": 260.00
@@ -124,7 +124,7 @@ const products = [
     preservative: "Sugar syrup glaze",
     sourcing: "Premium wheat & sugar markets",
     curing: "Immediate packaging post-cooling",
-    ingredients: "Refined Wheat Flour (Maida), Sugar, Pure Ghee, Water, Cardamom.",
+    ingredients: "Refined Wheat Flour (Maida), Sugar, Pure Ghee, Water, and our proprietary Secret Blend.",
     pricing: {
       "200g": 130.00,
       "400g": 240.00
