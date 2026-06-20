@@ -1201,98 +1201,6 @@ function closePolicyModal() {
   }, 300);
 }
 
-function initBottleOpenerScroll() {
-  const widget = document.getElementById("bottle-opener-widget");
-  const opener = document.getElementById("widget-opener");
-  const cap = document.getElementById("widget-cap");
-  const fizz = document.getElementById("widget-fizz");
-  const scene = document.getElementById("bottle-scene");
-  const statusTitle = document.getElementById("bottle-status-title");
-  const statusDesc = document.getElementById("bottle-status-desc");
-
-  if (!widget || !opener || !cap || !fizz || !scene || !statusTitle || !statusDesc) return;
-
-  let popped = false;
-
-  function handleScroll() {
-    const rect = widget.getBoundingClientRect();
-    const viewportHeight = window.innerHeight;
-    
-    // We calculate progress relative to the screen. 
-    // It starts when the top of the card is visible at the bottom of the viewport
-    // and completes when the center of the card is at the center of the viewport.
-    const startY = viewportHeight;
-    const endY = viewportHeight * 0.35;
-    
-    const currentY = rect.top;
-    
-    let progress = (startY - currentY) / (startY - endY);
-    progress = Math.max(0, Math.min(1, progress));
-
-    if (progress < 0.6) {
-      // Step 1: Opener descends onto the cap
-      // Descend: top moves from 30px to 108px
-      const currentTop = 30 + (progress / 0.6) * 78;
-      opener.style.top = `${currentTop}px`;
-      
-      // Rotate opener slightly: from -30deg to -5deg
-      const currentRot = -30 + (progress / 0.6) * 25;
-      opener.style.transform = `translateX(-50%) rotate(${currentRot}deg)`;
-      
-      // Reset cap & fizz
-      cap.style.top = "110px";
-      cap.style.transform = "translateX(-50%) rotate(0deg)";
-      cap.style.opacity = "1";
-      fizz.style.display = "none";
-      scene.classList.remove("opened-sparkle");
-      
-      statusTitle.textContent = "Coldrink Bottle Sealed";
-      statusDesc.textContent = "Scroll down to align the opener and pop open our legacy!";
-      popped = false;
-    } else {
-      // Step 2: Opener prys cap open (progress 0.6 to 1.0)
-      const pryProgress = (progress - 0.6) / 0.4; // 0 to 1
-      
-      // Opener rotates upwards: from -5deg to 35deg
-      const currentRot = -5 + (pryProgress * 40);
-      opener.style.transform = `translateX(-50%) rotate(${currentRot}deg)`;
-      opener.style.top = `${108 - (pryProgress * 15)}px`;
-      
-      if (pryProgress < 0.3) {
-        // Cap starts prying
-        cap.style.top = `${110 - (pryProgress * 10)}px`;
-        cap.style.transform = `translateX(-50%) rotate(${-pryProgress * 20}deg)`;
-        cap.style.opacity = "1";
-        fizz.style.display = "none";
-        scene.classList.remove("opened-sparkle");
-        statusTitle.textContent = "Unlocking Heritage...";
-        statusDesc.textContent = "Just a little more scroll to pop the cap!";
-      } else {
-        // Cap pops off completely
-        const flyProgress = (pryProgress - 0.3) / 0.7; // 0 to 1
-        
-        cap.style.top = `${107 - (flyProgress * 140)}px`;
-        cap.style.transform = `translateX(calc(-50% + ${flyProgress * 160}px)) rotate(${flyProgress * 360}deg)`;
-        cap.style.opacity = `${1 - flyProgress}`;
-        
-        fizz.style.display = "flex";
-        scene.classList.add("opened-sparkle");
-        
-        statusTitle.textContent = "POP! Opened Since 1968";
-        statusDesc.textContent = "The legacy established by Late Shri Swaranlal Julka and the family is preserved fresh daily. Savor Sion Koliwada's authentic tastes!";
-        
-        if (!popped) {
-          popped = true;
-        }
-      }
-    }
-  }
-
-  window.addEventListener("scroll", handleScroll);
-  window.addEventListener("resize", handleScroll);
-  handleScroll(); // Trigger initial state
-}
-
 // ==========================================================================
 // Initialization & Bindings
 // ==========================================================================
@@ -1301,7 +1209,6 @@ document.addEventListener("DOMContentLoaded", () => {
   renderCatalog();
   updateCartUI();
   initFaqs();
-  initBottleOpenerScroll();
   
   // Filter Click Listeners
   document.querySelectorAll(".filter-btn").forEach(button => {
