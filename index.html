@@ -250,6 +250,9 @@
   <!-- Google Maps API for Autocomplete & Location Pinning -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyi8SIaQuuPEVUh4zxU3E-hkd9-YlEHdQ&libraries=places&loading=async" defer></script>
 
+  <!-- AOS Library for Scroll Animations -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="index.css">
 </head>
@@ -308,7 +311,7 @@
   <!-- Heritage / Narrative Section -->
   <section id="heritage" class="heritage-section">
     <div class="heritage-container">
-      <div class="heritage-image">
+      <div class="heritage-image" data-aos="fade-right">
         <div class="heritage-photo-wrapper" style="overflow: visible;">
           <div class="heritage-accent-badge">Sion Koliwada's Pride</div>
           
@@ -359,7 +362,7 @@
           </div>
         </div>
       </div>
-      <div class="heritage-text">
+      <div class="heritage-text" data-aos="fade-left">
         <h2 class="section-title">The Sion Koliwada Legacy</h2>
         <p class="heritage-paragraph">
           What began as a simple corner store started on a wooden table by <strong>Late Shri Swaranlal Julka</strong> in the late 1960s has grown over generations. To ease the daily operations, <strong>Shri Rishiraj Julka</strong> and later <strong>Shri Jatin Julka</strong> joined the family business, establishing <strong>Om Coldrink House</strong> as a beloved local landmark in Sion Koliwada near GTB Nagar station.
@@ -396,23 +399,23 @@
   <!-- Detailed Crafting Process Section (Long Page SEO Content) -->
   <section id="process-section" class="process-section">
     <div class="process-container">
-      <h2 class="section-title text-center">The Art of Punjabi Sun-Curing</h2>
-      <p class="section-subtitle text-center">How we capture authentic flavors in Sion Koliwada.</p>
+      <h2 class="section-title text-center" data-aos="fade-up">The Art of Punjabi Sun-Curing</h2>
+      <p class="section-subtitle text-center" data-aos="fade-up" data-aos-delay="100">How we capture authentic flavors in Sion Koliwada.</p>
       
       <div class="process-steps-grid">
-        <div class="process-card">
+        <div class="process-card" data-aos="zoom-in" data-aos-delay="100">
           <div class="process-number">01</div>
           <h3>Hand-Selected Ingredients</h3>
           <p>We source local raw mangoes, fresh jackfruit (kathal), wild karvanda, and fresh bitter gourd (karela). Only prime spices are used to ensure the natural bite and shelf life of the pickle.</p>
         </div>
         
-        <div class="process-card">
+        <div class="process-card" data-aos="zoom-in" data-aos-delay="200">
           <div class="process-number">02</div>
           <h3>Cold-Pressed Mustard Oil</h3>
           <p>We use high-grade, cold-pressed mustard oil (Sarson ka Tel) which acts as a natural preservative and infuses the classic pungent warmth distinct to Punjabi pickles.</p>
         </div>
         
-        <div class="process-card">
+        <div class="process-card" data-aos="zoom-in" data-aos-delay="300">
           <div class="process-number">03</div>
           <h3>Traditional Sun-Curing</h3>
           <p>Instead of accelerated heat chambers or synthetic vinegar, our pickle jars spend 14-21 days basking in solar warmth, allowing spices to naturally bloom and soften the vegetables.</p>
@@ -462,13 +465,13 @@
       <p class="section-subtitle text-center">What customers in Mumbai say about Om Coldrink House.</p>
       
       <div class="testimonials-grid">
-        <div class="testimonial-card">
+        <div class="testimonial-card" data-aos="flip-up" data-aos-delay="100">
           <div class="rating-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
           <p class="testimonial-text">"The Matthri from Om Coldrink House takes me back to my childhood in Amritsar. And their Jackfruit Pickle is out of this world—hard to find such authentic taste anywhere else in Mumbai!"</p>
           <strong class="testimonial-author">— Baldev Singh, GTB Nagar</strong>
         </div>
         
-        <div class="testimonial-card">
+        <div class="testimonial-card" data-aos="flip-up" data-aos-delay="200">
           <div class="rating-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
           <p class="testimonial-text">"I always buy their Karvanda Achar and Karela Achar. Cured naturally in oil under the sun, they have that vintage homemade taste that commercial brands can never replicate."</p>
           <strong class="testimonial-author">— Simran Kaur, Sion Koliwada</strong>
@@ -914,6 +917,18 @@
     <i class="fa-brands fa-whatsapp"></i>
     <span class="whatsapp-tooltip">Chat with us!</span>
   </a>
+
+  <!-- AOS Animation Script -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      AOS.init({
+        duration: 800,
+        once: true,
+        offset: 100
+      });
+    });
+  </script>
 
   <!-- Core Javascript -->
   <script src="index.js"></script>
